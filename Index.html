@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LudoSabio - Diviertete Aprendiendo</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 200%;
+            height: 150px;
+            background-size: 1000px 150px;
+            background-repeat: repeat-x;
+            animation: wave 15s linear infinite;
+        }
+
+        .wave1 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 150"><path d="M0,50 C250,150 350,0 500,50 C650,100 750,0 1000,50 L1000,150 L0,150 Z" fill="rgba(173, 216, 230, 0.5)"></path></svg>');
+            animation-duration: 10s;
+        }
+
+        .wave2 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 150"><path d="M0,70 C200,20 350,120 500,70 C650,20 800,120 1000,70 L1000,150 L0,150 Z" fill="rgba(144, 238, 144, 0.4)"></path></svg>');
+            animation-duration: 15s;
+            animation-delay: -5s;
+        }
+
+        .wave3 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 150"><path d="M0,60 C300,100 400,20 500,60 C600,100 700,20 1000,60 L1000,150 L0,150 Z" fill="rgba(221, 160, 221, 0.4)"></path></svg>');
+            animation-duration: 20s;
+            animation-delay: -2s;
+        }
+
+        to {
+            transform: translateY(-10vh) scale(1);
+            opacity: 0;
+        }
+
+        .particle-1 {
+            width: 10px;
+            height: 10px;
+            left: 15%;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+
+        .particle-2 {
+            width: 20px;
+            height: 20px;
+            left: 40%;
+            animation-duration: 12s;
+            animation-delay: 3s;
+        }
+
+        .particle-3 {
+            width: 15px;
+            height: 15px;
+            left: 70%;
+            animation-duration: 8s;
+            animation-delay: 5s;
+        }
+
+        .particle-4 {
+            width: 12px;
+            height: 12px;
+            left: 85%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+        }
+
+        .particle-5 {
+            width: 18px;
+            height: 18px;
+            left: 5%;
+            animation-duration: 9s;
+            animation-delay: 7s;
+        }
+
+        .particle-6 {
+            width: 25px;
+            height: 25px;
+            left: 55%;
+            animation-duration: 14s;
+            animation-delay: 0s;
+        }
+
+        .particle-7 {
+            width: 8px;
+            height: 8px;
+            left: 25%;
+            animation-duration: 11s;
+            animation-delay: 4s;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .geo-shape {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #89f7fe, #66a6ff);
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 80px solid transparent;
+            border-right: 80px solid transparent;
+            border-bottom: 140px solid #ffdde1;
+        }
+
+        .square {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            transform: rotate(45deg);
+        }
+
+        .shape1 {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            top: 70%;
+            left: 10%;
+            animation-delay: 5s;
+            width: 80px;
+            height: 80px;
+        }
+
+        .shape3 {
+            top: 20%;
+            right: 15%;
+            animation-delay: 10s;
+        }
+
+        .shape4 {
+            top: 65%;
+            right: 20%;
+            animation-delay: 15s;
+            width: 100px;
+            height: 100px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(360deg);
+            }
+        }
+
+        .btn-glow {
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px 5px rgba(33, 150, 243, 0.5);
+        }
+
+        .form-input {
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            box-shadow: 0 0 15px 3px rgba(33, 150, 243, 0.4);
+            border-color: #2196F3;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2196F3",
+                        "background-light": "#F0F8FF",
+                        "background-dark": "#0D1B2A",
+                    },
+                    fontFamily: {
+                        "display": ["Poppins", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 8px 25px rgba(0, 0, 0, 0.1)',
+                    }
+                },
+            },
+        }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                        "success": "#28a745",
+                        "danger": "#dc3545",
+                        "warning": "#f39c12",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                            '100%': { backgroundPosition: '0% 50%' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fill: {
+                            '0%': { width: '0%' },
+                            '100%': { width: '25%' },
+                        },
+                        pulse: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.1)' },
+                        }
+                    },
+                    animation: {
+                        gradient: 'gradient 15s ease infinite',
+                        float: 'float 6s ease-in-out infinite',
+                        fill: 'fill 1.5s ease-out forwards',
+                        pulse: 'pulse 1s ease-in-out',
+                    }
+                },
+            },
+        }
+    </script>
+
+</head>
+
+<body class="font-display text-[#333333] dark:text-gray-200">
+    <div class="geo-shape circle shape1"></div>
+    <div class="geo-shape triangle shape2"></div>
+    <div class="geo-shape square shape3"></div>
+    <div class="geo-shape circle shape4"></div>
+    <div
+        class="relative flex min-h-screen w-full flex-col items-center justify-center bg-transparent group/design-root overflow-hidden p-4">
+        <div class="wave-container">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="wave wave3"></div>
+        </div>
+        <div id="login-view"
+            class="layout-container relative z-10 flex h-full grow flex-col items-center justify-center opacity-100 transition-opacity duration-500">
+            <div
+                class="layout-content-container flex flex-col w-full max-w-[420px] p-8 bg-white/70 dark:bg-background-dark/70 backdrop-blur-xl rounded-2xl shadow-soft border border-white/30 dark:border-gray-700/50">
+                <div class="flex flex-col items-center justify-center gap-2 p-4 text-center">
+                    <p
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400 dark:from-blue-400 dark:to-teal-300 text-6xl font-black leading-tight tracking-tighter">
+                        LudoSabio</p>
+                    <p class="text-[#616189] dark:text-gray-300 text-lg font-normal leading-normal">Inicia sesión para
+                        comenzar a aprender</p>
+                </div>
+                <div class="flex flex-col gap-6 px-4 py-3">
+                    <div class="flex flex-col">
+                        <label class="text-[#111118] dark:text-white text-base font-semibold leading-normal pb-2"
+                            for="username">Nombre de Estudiante</label>
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/50 dark:bg-gray-700/50 dark:text-white h-14 placeholder:text-[#616189] p-[15px] text-base font-normal leading-normal shadow-sm hover:shadow-md"
+                            id="userName" name="userName" placeholder="Ingresa tu usuario" type="text" />
+                    </div>
+                    <div class="flex flex-col gap-6 px-4 py-3">
+                        <label class="flex flex-col min-w-40 flex-1">
+                            <p class="text-[#111118] dark:text-white text-base font-semibold leading-normal pb-2">
+                                Selecciona tu grado</p>
+                            <select id="selectGrado"
+                                class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/50 dark:bg-gray-700/50 dark:text-white focus:border-primary h-14 placeholder:text-[#616189] p-[15px] text-base font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat bg-right pr-8"
+                                style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');">
+                                <option value="5">5°</option>
+                                <option value="6">6°</option>
+                                <option value="7">7°</option>
+                                <option value="8">8°</option>
+                                <option value="9">9°</option>
+                                <option value="10">10°</option>
+                                <option value="11">11°</option>
+                            </select>
+                        </label>
+                        <label class="flex flex-col min-w-40 flex-1">
+                            <p class="text-[#111118] dark:text-white text-base font-semibold leading-normal pb-2">Elige
+                                la dificultad</p>
+                            <select id="selectDificultad"
+                                class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/50 dark:bg-gray-700/50 dark:text-white focus:border-primary h-14 placeholder:text-[#616189] p-[15px] text-base font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat bg-right pr-8"
+                                style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');">
+                                <option value="facil">Fácil</option>
+                                <option value="media">Media</option>
+                                <option value="dificil">Difícil</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4 px-4 py-3 justify-center">
+                    <button onclick="entrar()"
+                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-lg font-bold leading-normal tracking-wide shadow-lg btn-glow w-full">
+                        <span>Entrar</span>
+                    </button>
+                </div>
+                <div class="text-center mt-4">
+                    <a class="text-sm text-primary hover:underline dark:text-blue-400" href="#">¿Olvidaste tu clave?</a>
+                    <p class="text-sm text-[#424242] dark:text-gray-300 mt-2">¿No tienes una cuenta? <a
+                            class="font-semibold text-primary hover:underline dark:text-blue-400"
+                            href="#">Regístrate</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- inicio -->
+
+        <div id="quiz-view" class="opacity-0 h-screen w-full absolute  top-0 left-0 transition-opacity duration-500">
+            <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-hidden">
+                <div
+                    class="absolute inset-0 -z-10 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 dark:from-blue-900 dark:via-purple-900 dark:to-pink-900 animate-gradient bg-[400%_400%]">
+                    <div class="particle particle-1"></div>
+                    <div class="particle particle-2"></div>
+                    <div class="particle particle-3"></div>
+                    <div class="particle particle-4"></div>
+                    <div class="particle particle-5"></div>
+                    <div class="particle particle-6"></div>
+                    <div class="particle particle-7"></div>
+                </div>
+                <div class="layout-container flex h-full grow flex-col">
+                    <header
+                        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200/50 dark:border-gray-700/50 px-6 md:px-10 py-4 bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="size-8 text-primary">
+                                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"
+                                        fill="currentColor"></path>
+                                    <path clip-rule="evenodd"
+                                        d="M39.998 12.236C39.9944 12.2537 39.9875 12.2845 39.9748 12.3294C39.9436 12.4399 39.8949 12.5741 39.8346 12.7175C39.8168 12.7597 39.7989 12.8007 39.7813 12.8398C38.5103 13.7113 35.9788 14.9393 33.7095 15.4811C30.9875 16.131 27.6413 16.5217 24 16.5217C20.3587 16.5217 17.0125 16.131 14.2905 15.4811C12.0012 14.9346 9.44505 13.6897 8.18538 12.8168C8.17384 12.7925 8.16216 12.767 8.15052 12.7408C8.09919 12.6249 8.05721 12.5114 8.02977 12.411C8.00356 12.3152 8.00039 12.2667 8.00004 12.2612C8.00004 12.261 8 12.2607 8.00004 12.2612C8.00004 12.2359 8.0104 11.9233 8.68485 11.3686C9.34546 10.8254 10.4222 10.2469 11.9291 9.72276C14.9242 8.68098 19.1919 8 24 8C28.8081 8 33.0758 8.68098 36.0709 9.72276C37.5778 10.2469 38.6545 10.8254 39.3151 11.3686C39.9006 11.8501 39.9857 12.1489 39.998 12.236ZM4.95178 15.2312L21.4543 41.6973C22.6288 43.5809 25.3712 43.5809 26.5457 41.6973L43.0534 15.223C43.0709 15.1948 43.0878 15.1662 43.104 15.1371L41.3563 14.1648C43.104 15.1371 43.1038 15.1374 43.104 15.1371L43.1051 15.135L43.1065 15.1325L43.1101 15.1261L43.1199 15.1082C43.1276 15.094 43.1377 15.0754 43.1497 15.0527C43.1738 15.0075 43.2062 14.9455 43.244 14.8701C43.319 14.7208 43.4196 14.511 43.5217 14.2683C43.6901 13.8679 44 13.0689 44 12.2609C44 10.5573 43.003 9.22254 41.8558 8.2791C40.6947 7.32427 39.1354 6.55361 37.385 5.94477C33.8654 4.72057 29.133 4 24 4C18.867 4 14.1346 4.72057 10.615 5.94478C8.86463 6.55361 7.30529 7.32428 6.14419 8.27911C4.99695 9.22255 3.99999 10.5573 3.99999 12.2609C3.99999 13.1275 4.29264 13.9078 4.49321 14.3607C4.60375 14.6102 4.71348 14.8196 4.79687 14.9689C4.83898 15.0444 4.87547 15.1065 4.9035 15.1529C4.91754 15.1762 4.92954 15.1957 4.93916 15.2111L4.94662 15.223L4.95178 15.2312ZM35.9868 18.996L24 38.22L12.0131 18.996C12.4661 19.1391 12.9179 19.2658 13.3617 19.3718C16.4281 20.1039 20.0901 20.5217 24 20.5217C27.9099 20.5217 31.5719 20.1039 34.6383 19.3718C35.082 19.2658 35.5339 19.1391 35.9868 18.996Z"
+                                        fill="currentColor" fill-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-xl font-bold tracking-tight text-gray-800 dark:text-gray-100">LudoSabio</h2>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                                data-alt="User avatar"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAAgJDjSVOt_ZIejlevMLMaGWliK53GLjdo3qgLDXhUyGn-jahKllMCr627aLqIzPTACDM9gXZGZEfk1L-9Xo7A9sYu_TL4mA_XmtHIBdxSdWhwxnswMyJPFQgW_WTRot0foEA42mevoBII_5HPd3DzKS1UOcN8PoFXMbqM9pfZNXCGsSfzi3eOrxxDMM9SgNjQNRcpRSRociuznblZlXsuHOq_JJt4M4yAI58_qIJbiolmzyxtBrAFH1EkTk0jxjwGD4u9dkQztkk");'>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- CONTENEDOR DEL QUIZ -->
+                    <main class="flex-1 px-4 sm:px-6 lg:px-8 py-8">
+                        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="lg:col-span-2">
+                                <div
+                                    class="bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-lg p-6 md:p-8 backdrop-blur-md transition-all duration-300 ease-in-out hover:shadow-2xl">
+                                    <div class="flex justify-between items-center mb-6">
+                                        <div id="materiaActual"
+                                            class="text-primary tracking-light text-2xl md:text-3xl font-bold leading-tight">
+                                            Matemáticas
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="material-symbols-outlined text-danger text-2xl animate-pulse"
+                                                style="animation-delay: 0.1s;">favorite</span>
+                                            <span class="material-symbols-outlined text-danger text-2xl animate-pulse"
+                                                style="animation-delay: 0.2s;">favorite</span>
+                                            <span class="material-symbols-outlined text-danger text-2xl animate-pulse"
+                                                style="animation-delay: 0.3s;">favorite</span>
+                                            <span
+                                                class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-2xl">favorite_border</span>
+                                            <span
+                                                class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-2xl">favorite_border</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Progress -->
+
+                                    <div class="flex flex-col gap-2 mb-6">
+                                        <div class="rounded-full bg-gray-200 dark:bg-gray-700">
+                                            <div class="h-3 rounded-full bg-primary animate-fill" style="width: 25%;">
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm font-normal text-right">
+                                            Pregunta 5 de 20</p>
+                                    </div>
+                                    <!-- Pregunta -->
+                                    <div class="pregunta Card" id="preguntaArea">
+                                        <div id="pregunta"
+                                            class="pregunta text-[#111618] dark:text-white text-xl md:text-2xl font-bold leading-tight tracking-tight text-left pb-6">
+                                        </div>
+                                        <div id="opciones" class="opciones flex flex-col gap-4">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                                        <button onclick="saltarPregunta()"
+                                            class="flex-1 flex items-center justify-center gap-2 rounded-lg h-12 bg-warning/20 text-warning font-bold text-base leading-normal tracking-wide transition-all duration-300 ease-in-out hover:bg-warning/30 hover:shadow-lg hover:scale-105 active:scale-95">
+                                            <span class="material-symbols-outlined">skip_next</span>
+                                            Saltar (pierdes 1 vida)
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- Información del Jugador -->
+                            <div class="lg:col-span-1 space-y-8">
+                                <div class="bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-lg p-6 backdrop-blur-md">
+                                    <h3
+                                        class="font-bold text-lg mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                        Información del Jugador</h3>
+                                    <div class="space-y-3 text-sm">
+                                        <div class="flex justify-between">
+                                            <span class="font-semibold text-gray-600 dark:text-gray-400">usuario:</span>
+                                            <span id="usuarioNombre" class="font-medium">Invitado</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="font-semibold text-gray-600 dark:text-gray-400">Grado:</span>
+                                            <span id="spanGrado" class="font-medium">6º Primaria</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span
+                                                class="font-semibold text-gray-600 dark:text-gray-400">Dificultad:</span>
+                                            <span id="spanDificultad"
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
+                                                Medio
+                                            </span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="font-semibold text-gray-600 dark:text-gray-400">Vidas:</span>
+                                            <span id="vidas"
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
+
+                                            </span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span
+                                                class="font-semibold text-gray-600 dark:text-gray-400">vidasTop:</span>
+                                            <span id="vidasTop"
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
+
+                                            </span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span
+                                                class="font-semibold text-gray-600 dark:text-gray-400">Progreso:</span>
+                                            <span id="progreso"
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
+                                                0
+                                            </span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span
+                                                class="font-semibold text-gray-600 dark:text-gray-400">Contestadas:</span>
+                                            <span class="font-medium" id="contadorPreguntas">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Banco de Preguntas -->
+                                <div class="bg-white/70 dark:bg-gray-800/70 rounded-xl shadow-lg p-6 backdrop-blur-md">
+                                    <h3
+                                        class="font-bold text-lg mb-4 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                        Banco de Preguntas</h3>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                                        Nuestro banco de preguntas es revisado y actualizado semanalmente por nuestro
+                                        equipo de educadores para asegurar la calidad y relevancia del contenido.
+                                    </p>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN SIN VIDAS -->
+        <!-- Overlay de fondo oscuro que cubre toda la pantalla -->
+
+        <div id="pantallaFin"
+            class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[60vh] z-50 overflow-hiddenxl">
+
+            <!-- Círculos decorativos de fondo (relativos al modal) -->
+            <div class="absolute inset-0 pointer-events-none rounded-xl overflow-hidden">
+                <div
+                    class="absolute top-1/3 left-1/3 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl floating">
+                </div>
+                <div
+                    class="absolute bottom-1/4 right-1/4 w-24 h-24 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl floating2">
+                </div>
+                <div
+                    class="absolute bottom-1/2 right-1/3 w-24 h-24 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl floating">
+                </div>
+            </div>
+
+            <!-- Contenido del modal (ocupa 100% del padre) -->
+            <div class="w-full h-full items-center justify-center p-4 pb-6 relative z-10">
+                <div
+                    class="text-center bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-xl shadow-2xl h-[50vh] pt-6 overflow-y-auto w-full">
+
+                    <div class="flex justify-center mb-2 fade-in" style="animation-delay: 0.2s;">
+                        <span class="material-symbols-outlined text-red-500 text-6xl">favorite</span>
+                    </div>
+
+                    <h1
+                        class="text-[#111618] dark:text-white tracking-light text-[32px] font-bold leading-tight pb-3 pt-2 fade-in">
+                        ¡Te quedaste sin vidas!
+                    </h1>
+
+                    <p class="text-[#111618] dark:text-gray-300 text-base font-normal leading-normal pb-3 pt-1 px-4 fade-in"
+                        style="animation-delay: 0.4s;">
+                        ¡No te preocupes! Juega un minijuego para ganar más vidas y seguir aprendiendo.
+                    </p>
+
+                    <div class="flex flex-col gap-4 max-w-md mx-auto px-4 mt-4 fade-in" style="animation-delay: 0.6s;">
+                        <button onclick="iniciarSopa()"
+                            class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-orange-400 text-white text-base font-bold leading-normal tracking-[0.015em] w-full shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/50 hover:scale-105">
+                            <span class="truncate">Sopa de letras — EN ⇄ ES</span>
+                        </button>
+
+                        <button onclick="iniciarGusanito()"
+                            class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-green-500 text-white text-base font-bold leading-normal tracking-[0.015em] w-full shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50 hover:scale-105">
+                            <span class="truncate">Gusanito (Snake) — operaciones matemáticas</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SOPA DE LETRAS -->
+         <div id="pantallaSopa" class="hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl bg-white/70 dark:bg-gray-800/70  shadow-7xl  flex flex-col  mx-auto w-[70vw] h-[70vh] z-[999]">
+            
+            <div class="flex flex-wrap justify-between gap-4 p-4">
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-4xl font-black tracking-tighter font-display">Sopa de Letras</h1>
+                    <p class="text-base font-normal text-[#617c89] dark:text-gray-400">Encuentra las siguientes palabras en inglés</p>
+                </div>
+            
+                <button 
+                    onclick="forzarSalirSopa()"
+                    class="back-button group flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] shadow-lg hover:bg-primary/90 transition-all duration-300 ease-in-out hover:shadow-xl">
+                    <span class="transition-transform duration-300 ease-in-out">Volver al quiz</span>
+                    <span class="material-symbols-outlined ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out arrow-icon">arrow_forward</span>
+                </button>
+            
+            </div>
+            <div class="flex flex-col lg:flex-row justify-between w-full gap-8 p-4 mt-6 ">
+                <div class="flex-grow flex justify-between gap-2 p-6 bg-white dark:bg-gray-800/50 word-search-bg w-full">
+                    <div class="flex flex-col lg:flex-row justify-between gap-8 p-4 mt-6 w-full">
+                    <div id="wordGrid" class="flex-grow grid grid-cols-10 w-[70%]  flex-shrink/2  gap-2 p-6 bg-white dark:bg-gray-800/50 rounded-xsm word-search-bg">
+                        </div>
+                    <div id="wordListContainer" class="w-[20%]  flex-shrink-0 bg-white dark:bg-gray-800/50 p-6 rounded-sm ">
+                        <h2 class="text-xl font-bold mb-4 font-display">Palabras a encontrar</h2>
+                        <div id="wordList" class="space-y-3">
+                            </div>
+                    </div>
+                </div>
+                </div>
+            
+            </div>
+            
+        </div>
+        
+
+        <!-- GUSANITO -->
+        <div id="pantallaGusanito" class="hidden center">
+            <h2>Gusanito (resuelve operaciones al comer manzanas)</h2>
+            <p class="small">3 aciertos seguidos → +2 vidas y vuelves al quiz. Si chocas con la
+                pared, el juego se reinicia.</p>
+            <canvas id="gusanitoCanvas" width="440" height="440"></canvas>
+            <div id="operacionArea" class="card"
+                style="padding:12px; margin-top:8px; display:flex; flex-direction:column; gap:8px;">
+                <div id="operacion" style="font-weight:800">Operación aparecerá al comer</div>
+                <input id="respuestaOperacion" placeholder="Ingresa respuesta"
+                    style="padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.12); background:transparent; color:var(--text)">
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn" onclick="verificarOperacion()">Enviar</button>
+                    <button class="btn ghost" onclick="forzarSalirGusanito()">Salir</button>
+                </div>
+                <div class="small">Aciertos actuales: <span id="aciertosG">0</span>/3</div>
+            </div>
+            <div>
+                <script>
+                    let juegoPausado = false
+                </script>
+            </div>
+            <div>
+                <script>
+                    function gameLoop() {
+                        if (juegoPausado) return; // si esta en pausa no se ejecuta nada 
+                        // aqui sigue tu logica normal:
+                        // mover gusanito, dibujar canvas, detectar colisiones...
+                    }
+                </script>
+            </div>
+            <div>
+                <script>
+                    function mostrarOperacion() {
+                        juegoPausado = true; // detiene el juego
+                        document.getElementById("operacionArea").style.display = "flex";
+                    }
+                </script>
+            </div>
+            <div>
+                <script>
+                    function verificarOperacion() {
+                        let respuesta = document.getElementById("respuestaOperacion").value;
+                        // Tu logica de validacion de la respuesta
+                        // luego de verificar:
+                        document.getElementById("respuestaOperacion").value = "";
+                        document.getElementById("operacionArea").style.display = "none";
+                        juegoPausado = false; // Reanuda el juego
+                    }
+                </script>
+            </div>
+            <div>
+                <script>
+                    function forzarSalirGusanito() {
+                        document.getElementById("operacionArea").style.display = "none";
+                        juegoPausado = false;
+                        // aqui si quieres puedes reiniciar el juego
+                    }
+                </script>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="Js/Scripts.js"></script>
+
+</body>
+
+</html>
