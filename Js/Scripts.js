@@ -83,14 +83,13 @@ const el = {
     seletName: document.getElementById("userName"),
     dataName: document.getElementById("usuarioNombre"),
     pantallaInicio: document.getElementById("login-view"),
-    pantallaJuego: document.getElementById("quiz-view"),
+    pantallaJuego: document.getElementById("quizContainer"),
     pantallaFin: document.getElementById("pantallaFin"),
     pantallaSopa: document.getElementById("pantallaSopa"),
-    // pantallaGusanito: document.getElementById("pantallaGusanito"),
+    pantallaGusanito: document.getElementById("pantallaGusanito"),
     quizQuestion: document.getElementById("pregunta"),
     optionsQuestion: document.getElementById("opciones"),
     vidasEl: document.getElementById("vidas"),
-    vidasTop: document.getElementById("vidasTop"),
     contadorPreguntas: document.getElementById("contadorPreguntas"),
     progresoEl: document.getElementById("progreso"),
     seletGrado: document.getElementById("selectGrado"),
@@ -99,6 +98,7 @@ const el = {
     dificultadLabel: document.getElementById("spanDificultad"),
     materiaLabel: document.getElementById("materiaActual"),
     overlayOperacion: document.getElementById("overlayOperacion"),
+    quizContainer: document.getElementById("quizContainer"),
 };
 
 /* ---------- Flujo principal ---------- */
@@ -108,10 +108,9 @@ function entrar() {
     el.dataName.innerText = el.seletName.value || "Invitado";
     spanGrado.innerText = el.seletGrado.value;
     spanDificultad.innerText = el.selectDificultad.value;
-
-    console.log("funcion de entrar iniciada");
-
-    setTimeout(() => { iniciarJuego(); }, 1000);
+      setTimeout(() => { 
+        el.pantallaInicio.classList.add("hidden");
+        iniciarJuego(); }, 500);
     
 }
 function iniciarJuego(){
@@ -129,11 +128,8 @@ function iniciarJuego(){
     }
 
     el.gradoLabel.innerText = el.seletGrado.value + "°";
-    el.dificultadLabel.innerText = el.selectDificultad.value; 
-    el.pantallaInicio.classList.replace('opacity-100', 'opacity-0');      // Oculta la vista de login
-    el.pantallaJuego.classList.replace('opacity-0', 'opacity-100');    // Muestra la vista del quiz
-    console.log("funcion iniciar juego llamada");
-    // mostrarPantalla("juego");
+    el.dificultadLabel.innerText = el.selectDificultad.value;      
+    el.quizContainer.classList.replace("opacity-0", "opacity-1") 
     actualizarVidasUI();
     siguientePregunta();
 }
@@ -163,7 +159,7 @@ function siguientePregunta(){
         }
         // 1. Crear el <label> (contenedor principal de la opción)
         const label = document.createElement("label");
-        label.className = "flex items-center gap-4 rounded-lg border-2 border-solid border-gray-200 dark:border-gray-600 p-4 cursor-pointer hover:border-primary dark:hover:border-primary transition-all duration-300 ease-in-out transform hover:scale-105 has-[:checked]:border-primary has-[:checked]:bg-primary/10";
+        label.className = "flex items-center gap-4 rounded-lg border-2 border-solid border-gray-400 dark:border-gray-600 p-2 cursor-pointer hover:border-primary dark:hover:border-primary transition-all duration-300 ease-in-out transform hover:scale-105 has-[:checked]:border-primary has-[:checked]:bg-primary/10 text-sm";
         // Añadir 'opcion' para que la lógica de verificación (verificarRespuesta) pueda aplicar las clases 'correct'/'wrong'.
         label.classList.add("opcion"); 
         
@@ -172,7 +168,7 @@ function siguientePregunta(){
         input.type = "radio";
         input.name = "quiz-option";
         input.value = idx; // Usamos el índice como valor para identificación
-        input.className = "h-5 w-5 border-2 border-gray-300 dark:border-gray-500 bg-transparent text-transparent checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-primary";
+        input.className = "h-4 w-4 border-2 border-gray-400 dark:border-gray-500 bg-transparent text-transparent checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-primary text-sm";
         
         // 3. Crear el <div> contenedor de texto
         const textContainer = document.createElement("div");
@@ -180,7 +176,7 @@ function siguientePregunta(){
         
         // 4. Crear el <p> con el texto de la opción
         const textP = document.createElement("p");
-        textP.className = "text-base font-medium";
+        textP.className = "text-sm font-medium";
         textP.innerText = `${String.fromCharCode(65 + idx)}. ${opt}`; // Ejemplo: A. 42
         
         // 5. Ensamblar los elementos
@@ -231,8 +227,8 @@ function verificarRespuesta(indice, pregunta){
         actualizarVidasUI();
         
         setTimeout(() => { 
-            if (estado.vidas <= 4) { 
-                el.pantallaJuego.classList.add('blur-lg');
+            if (estado.vidas <= 0) { 
+                el.quizContainer.classList.add('blur-sm');
                 el.pantallaFin.classList.replace('hidden', 'block');
             } else {
                 siguientePregunta();
@@ -250,7 +246,7 @@ function actualizarContadores(){
     document.getElementById("contadorPreguntas").innerText = estado.preguntasContestadas; el.progresoEl.innerText = estado.progreso; 
     }
 function actualizarVidasUI(){ 
-    el.vidasEl.innerText = estado.vidas; el.vidasTop.innerText = estado.vidas; 
+    el.vidasEl.innerText = estado.vidas;  
     }
 
 function reiniciarTodo(){
@@ -399,7 +395,10 @@ function procesarSeleccionSopa(){
 let gusanito = { canvas:null, ctx:null, box:20, snake:[], dir:"RIGHT", food:{}, loopId:null, aciertos:0, awaitingAnswer:false, currentResult:null, streak:0 };
 
 function iniciarGusanito(){
-    mostrarPantalla("gusanito");
+    el.qui
+    el.pantallaSopa.classList.replace("block", "hidden");
+    el.pantallaGusanito.classList.remove("hidden")
+    el.pantallaGusanito.classList.replace("opacity-0", "opacity-1")
     gusanito.canvas = document.getElementById("gusanitoCanvas");
     gusanito.ctx = gusanito.canvas.getContext("2d");
     gusanito.box = 20; // tamaño del grid
@@ -413,7 +412,7 @@ function resetSnake(){
     gusanito.dir = "RIGHT"; gusanito.aciertos = 0; gusanito.streak = 0; document.getElementById("aciertosG").innerText = gusanito.aciertos;
     generarComidaGusanito();
     gusanito.awaitingAnswer=false; document.getElementById("overlayOperacion").classList.add("hidden");
-    gusanito.loopId = setInterval(loopGusanito, 110);
+    gusanito.loopId = setInterval(loopGusanito, 200);
 }
 
 function forzarSalirGusanito(){ if(gusanito.loopId) clearInterval(gusanito.loopId); document.removeEventListener("keydown", teclaGusanito); mostrarPantalla("juego"); }
@@ -439,7 +438,8 @@ function loopGusanito(){
 
     // colisión paredes -> reinicia juego, pero si agarra la manzana detener el juego , para poder realizar la operacion (no sales del minijuego)
     if(head.x<0 || head.y<0 || head.x>=gusanito.canvas.width || head.y>=gusanito.canvas.height){
-        alert("¡Chocaste con la pared! El juego se reinicia.");
+        const choque = document.getElementById("divChoque")
+        choque.classList.remove("hidden")
         resetSnake();
         return;
     }
@@ -539,7 +539,7 @@ function iniciarSopa() {
     
     // 5. Mostrar la pantalla
     setTimeout(() => { 
-        el.pantallaJuego.classList.add("blur-md");
+        el.quizContainer.classList.add("blur-sm");
         el.pantallaFin.classList.replace("block", "hidden");
         el.pantallaSopa.classList.replace("hidden", "flex"); 
     }, 200);
@@ -552,9 +552,8 @@ function renderWordGrid(grid, size) {
         row.forEach((cell, colIndex) => {
             const cellDiv = document.createElement('div');
             cellDiv.classList.add(
-                'grid-cell', 'flex', 'items-center', 'justify-center', 
-                'bg-background-light', 'dark:bg-gray-800', 'rounded-lg', 
-                'text-xl', 'font-bold', 'cursor-pointer', 'transition-colors', 'duration-100', 'ease-in-out'
+                'grid-cell', 'flex', 'items-center', 'justify-center', 'dark:bg-gray-800', 'rounded-lg', 
+                'text-md', 'font-bold', 'cursor-pointer', 'transition-colors', 'duration-100', 'ease-in-out'
             );
             cellDiv.textContent = cell.letter;
             cellDiv.dataset.row = rowIndex;
@@ -568,17 +567,17 @@ function renderWordGrid(grid, size) {
 function renderWordList(words) {
     words.forEach(word => {
         const label = document.createElement('label');
-        label.classList.add('flex', 'gap-x-3', 'py-3', 'flex-row-reverse', 'justify-between', 'items-center', 'word-item');
+        label.classList.add('flex', 'gap-x-1', 'flex-row-reverse', 'justify-between', 'items-center', 'word-item');
         label.dataset.word = word;
         
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.disabled = true;
-        checkbox.classList.add('h-5', 'w-5', 'rounded', 'border-2', 'bg-transparent', 'text-primary', 'checked:bg-primary', 'checked:border-primary', 'checked:bg-no-repeat', 'checked:bg-center', 'focus:ring-0', 'focus:ring-offset-0', 'focus:border-gray-300', 'dark:border-gray-600', 'dark:focus:border-gray-500', 'transition-all', 'duration-300');
+        checkbox.classList.add('h-3', 'w-3', 'rounded', 'border-2', 'bg-transparent', 'text-primary', 'checked:bg-primary', 'checked:border-primary', 'checked:bg-no-repeat', 'checked:bg-center', 'focus:ring-0', 'focus:ring-offset-0', 'focus:border-gray-300', 'dark:border-gray-600', 'dark:focus:border-gray-500', 'transition-all', 'duration-300');
         checkbox.style.setProperty('--checkbox-tick-svg', "url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(255,255,255)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e')");
 
         const p = document.createElement('p');
-        p.classList.add('text-base', 'font-normal', 'leading-normal', 'transition-all', 'duration-300');
+        p.classList.add('text-sm', 'font-normal', 'leading-normal', 'transition-all', 'duration-300');
         p.textContent = word;
 
         label.appendChild(checkbox);
