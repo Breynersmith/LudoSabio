@@ -1,0 +1,311 @@
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 200%;
+            height: 150px;
+            background-size: 1000px 150px;
+            background-repeat: repeat-x;
+            animation: wave 15s linear infinite;
+        }
+
+        .wave1 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 150"><path d="M0,50 C250,150 350,0 500,50 C650,100 750,0 1000,50 L1000,150 L0,150 Z" fill="rgba(173, 216, 230, 0.5)"></path></svg>');
+            animation-duration: 10s;
+        }
+
+        .wave2 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 150"><path d="M0,70 C200,20 350,120 500,70 C650,20 800,120 1000,70 L1000,150 L0,150 Z" fill="rgba(144, 238, 144, 0.4)"></path></svg>');
+            animation-duration: 15s;
+            animation-delay: -5s;
+        }
+
+        .wave3 {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 150"><path d="M0,60 C300,100 400,20 500,60 C600,100 700,20 1000,60 L1000,150 L0,150 Z" fill="rgba(221, 160, 221, 0.4)"></path></svg>');
+            animation-duration: 20s;
+            animation-delay: -2s;
+        }
+
+        to {
+            transform: translateY(-10vh) scale(1);
+            opacity: 0;
+        }
+
+        .particle-1 {
+            width: 10px;
+            height: 10px;
+            left: 15%;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+
+        .particle-2 {
+            width: 20px;
+            height: 20px;
+            left: 40%;
+            animation-duration: 12s;
+            animation-delay: 3s;
+        }
+
+        .particle-3 {
+            width: 15px;
+            height: 15px;
+            left: 70%;
+            animation-duration: 8s;
+            animation-delay: 5s;
+        }
+
+        .particle-4 {
+            width: 12px;
+            height: 12px;
+            left: 85%;
+            animation-duration: 15s;
+            animation-delay: 2s;
+        }
+
+        .particle-5 {
+            width: 18px;
+            height: 18px;
+            left: 5%;
+            animation-duration: 9s;
+            animation-delay: 7s;
+        }
+
+        .particle-6 {
+            width: 25px;
+            height: 25px;
+            left: 55%;
+            animation-duration: 14s;
+            animation-delay: 0s;
+        }
+
+        .particle-7 {
+            width: 8px;
+            height: 8px;
+            left: 25%;
+            animation-duration: 11s;
+            animation-delay: 4s;
+        }
+
+        @keyframes wave {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .geo-shape {
+            position: absolute;
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #89f7fe, #66a6ff);
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 80px solid transparent;
+            border-right: 80px solid transparent;
+            border-bottom: 140px solid #ffdde1;
+        }
+
+        .square {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            transform: rotate(45deg);
+        }
+
+        .shape1 {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            top: 70%;
+            left: 10%;
+            animation-delay: 5s;
+            width: 80px;
+            height: 80px;
+        }
+
+        .shape3 {
+            top: 20%;
+            right: 15%;
+            animation-delay: 10s;
+        }
+
+        .shape4 {
+            top: 65%;
+            right: 20%;
+            animation-delay: 15s;
+            width: 100px;
+            height: 100px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(360deg);
+            }
+        }
+
+        .btn-glow {
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px 5px rgba(33, 150, 243, 0.5);
+        }
+
+        .form-input {
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            box-shadow: 0 0 15px 3px rgba(33, 150, 243, 0.4);
+            border-color: #2196F3;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, #c8e6c9, #a5d6a7, #81c784, #66bb6a);
+            background-size: 400% 400%;
+        }
+
+        .dark .animated-gradient {
+            background: linear-gradient(-45deg, #1A2C1F, #2E4B31, #1A2C1F, #234126);
+            background-size: 400% 400%;
+        }
+
+        .fondoAnimado {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg,
+                    rgba(255, 182, 193, 0.6),
+                    rgba(173, 216, 230, 0.6),
+                    rgba(221, 160, 221, 0.6),
+                    rgba(240, 255, 255, 0.6));
+            background-size: 300% 300%;
+            animation: movimientoPastel 12s ease-in-out infinite;
+            filter: blur(20px);
+            z-index: 0;
+        }
+
+        @keyframes movimientoPastel {
+            0% {
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg) blur(25px);
+            }
+
+            50% {
+                background-position: 100% 50%;
+                filter: hue-rotate(40deg) blur(28px);
+            }
+
+            100% {
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg) blur(25px);
+            }
+        }
+
+        .canvas-background {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            border-radius: inherit;
+            z-index: 5;
+            background: radial-gradient(circle at center,
+                    rgba(255, 255, 255, 0.10),
+                    rgba(183, 216, 255, 0.25),
+                    rgba(233, 218, 84, 0.25));
+            backdrop-filter: blur(8px);
+        }
+
+        /* Formas mejor integradas al diseño */
+        .shape {
+            position: absolute;
+            opacity: 0.35;
+            filter: blur(2px);
+            animation: float 7s infinite alternate ease-in-out;
+        }
+
+        /* Colores de la paleta */
+        .circle {
+            width: 180px;
+            height: 180px;
+            background: rgba(232, 224, 131, 0.7);
+            border-radius: 50%;
+            top: 10%;
+            left: 15%;
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 160px solid rgba(137, 181, 255, 0.7);
+            bottom: 12%;
+            right: 10%;
+            animation-delay: 1.5s;
+        }
+
+        .square {
+            width: 130px;
+            height: 130px;
+            background: rgba(111, 255, 233, 0.7);
+            top: 55%;
+            left: 60%;
+            border-radius: 15px;
+            animation-delay: 3s;
+        }
+
+        /* Animación de movimiento suave */
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                transform: translateY(-15px) scale(1.05);
+            }
+        }
+    
