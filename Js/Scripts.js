@@ -110,6 +110,9 @@ function entrar() {
     spanDificultad.innerText = el.selectDificultad.value;
       setTimeout(() => { 
         el.pantallaInicio.classList.add("hidden");
+        el.pantallaJuego.classList.remove("hidden");
+        el.pantallaJuego.classList.replace("opacity-0", "opacity-1");
+
         iniciarJuego(); }, 500);
     
 }
