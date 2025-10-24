@@ -84,6 +84,7 @@ const el = {
     dataName: document.getElementById("usuarioNombre"),
     pantallaInicio: document.getElementById("login-view"),
     pantallaJuego: document.getElementById("quizContainer"),
+    questionsContainer: document.querySelector(".quizContainer"),
     pantallaFin: document.getElementById("pantallaFin"),
     pantallaSopa: document.getElementById("pantallaSopa"),
     pantallaGusanito: document.getElementById("pantallaGusanito"),
@@ -99,6 +100,7 @@ const el = {
     materiaLabel: document.getElementById("materiaActual"),
     overlayOperacion: document.getElementById("overlayOperacion"),
     quizContainer: document.getElementById("quizContainer"),
+    infoUser: document.querySelector(".infoUser"),
 };
 
 /* ---------- Flujo principal ---------- */
@@ -230,8 +232,8 @@ function verificarRespuesta(indice, pregunta){
         actualizarVidasUI();
         
         setTimeout(() => { 
-            if (estado.vidas <= 0) { 
-                el.quizContainer.classList.add('blur-sm');
+            if (estado.vidas <= 0) {
+                el.questionsContainer.classList.add('blur-sm');
                 el.pantallaFin.classList.replace('hidden', 'block');
             } else {
                 siguientePregunta();
@@ -398,7 +400,9 @@ function procesarSeleccionSopa(){
 let gusanito = { canvas:null, ctx:null, box:20, snake:[], dir:"RIGHT", food:{}, loopId:null, aciertos:0, awaitingAnswer:false, currentResult:null, streak:0 };
 
 function iniciarGusanito(){
-    el.qui
+    el.infoUser.classList.add("hidden");
+    el.questionsContainer.classList.add("hidden");
+    el.pantallaFin.classList.add("hidden");
     el.pantallaSopa.classList.replace("block", "hidden");
     el.pantallaGusanito.classList.remove("hidden")
     el.pantallaGusanito.classList.replace("opacity-0", "opacity-1")
