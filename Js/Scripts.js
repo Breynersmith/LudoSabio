@@ -538,7 +538,11 @@ function iniciarSopa() {
     setupGridEvents();
     
     // 5. Mostrar la pantalla
-    mostrarPantalla("sopa");
+    setTimeout(() => { 
+        el.pantallaJuego.classList.add("blur-md");
+        el.pantallaFin.classList.replace("block", "hidden");
+        el.pantallaSopa.classList.replace("hidden", "flex"); 
+    }, 200);
 }
 
 // Función para renderizar la cuadrícula en el HTML
