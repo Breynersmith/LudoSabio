@@ -486,7 +486,7 @@
 
                                                         <!-- Modal de operación -->
                                                         <div id="overlayOperacion"
-                                                            class="absolute inset-0 bg-black/50 flex items-center justify-center p-4 rounded-xl hidden">
+                                                            class="absolute inset-0 bg-black/50 flex items-center justify-center p-4 rounded-xl z-50 hidden">
                                                             <div class="bg-white dark:bg-background-dark shadow-lg rounded-xl p-6 w-full max-w-sm text-center transform animate-fadeIn"
                                                                 style="opacity: 1;">
                                                                 <h2
@@ -498,7 +498,24 @@
                                                                 <input id="modalRespuesta"
                                                                     class="w-full rounded-lg border-gray-300 dark:border-gray-600 bg-background-light dark:bg-gray-700 text-[#111618] dark:text-white focus:ring-primary focus:border-primary"
                                                                     placeholder="Tu respuesta" type="number" />
-                                                                <div class="mt-4 flex flex-col gap-3">
+
+                                                                <div id="successMessage"
+                                                                    class="hidden z-[999] bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+                                                                    <p class="text-green-500 text-sm mt-2">¡Respuesta
+                                                                        correcta!</p>
+                                                                </div>
+                                                                <div id="modalLoseVidas"
+                                                                    class="text-red-700 dark:text-red-300 px-2 py-2 rounded-lg text-center hidden z-50 bg-red/50 ">
+                                                                    <p>Respuesta incorrecta. Inténtalo de nuevo.</p>
+                                                                </div>
+                                                                <div id="modalWinVidas"
+                                                                    class=" dark:border-green-600 text-green-700 dark:text-green-300 px-2 py-2 rounded-lg text-center hidden z-50">
+                                                                    <p>!Ganaste 2 vidas¡</p>
+                                                                    <p>Ya puedes continuar</p>
+                                                                </div>
+
+
+                                                                <div class="mt-4 flex justify-between gap-3">
                                                                     <button onclick="modalEnviar()"
                                                                         class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-primary/90 transition-transform duration-200 hover:scale-105">
                                                                         Resolver
@@ -509,6 +526,8 @@
                                                                     </button>
                                                                 </div>
                                                             </div>
+
+
                                                         </div>
 
                                                         <!-- Alertas -->
