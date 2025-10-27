@@ -77,8 +77,6 @@ let estado = {
     quiz: false,
 
     // Estados de usuario y progreso
-    preguntasAcertadas: 0,
-    preguntasErradas: 0,
     vidas: 5,
     grado: "5",
     dificultad: "facil",
@@ -86,17 +84,17 @@ let estado = {
     progreso: 0,
     questionCurrent: null,
     preguntasGuardadas: [],
-    modalPantallaFin: false,
+    racha: 0,
+
+    // Estados de mensajes 
     gusanito_mensaje_corecto: false,
     gusanito_mensaje_de_error: false,
     gusanito_modal_pregunta_rapida: false,
     mensajeDeGanar: false,
 };
-let btnResolver = document.getElementById("btnEnviar");
+
 /* Elementos */
 const el = {
-    numeroDePregunta: document.getElementById("numeroDePregunta"),
-    totalPreguntas: document.getElementById("totalDePreguntas"),
     seletName: document.getElementById("userName"),
     dataName: document.getElementById("usuarioNombre"),
     pantallaInicio: document.getElementById("login-view"),
@@ -109,7 +107,7 @@ const el = {
     optionsQuestion: document.getElementById("opciones"),
     vidasEl: document.getElementById("vidas"),
     contadorPreguntas: document.getElementById("contadorPreguntas"),
-    barraProgreso: document.getElementById("barraProgresoVisual"),
+    progresoEl: document.getElementById("progreso"),
     seletGrado: document.getElementById("selectGrado"),
     gradoLabel: document.getElementById("spanGrado"),
     selectDificultad: document.getElementById("selectDificultad"),
@@ -120,7 +118,7 @@ const el = {
     infoUser: document.querySelector(".infoUser"),
     successMessage: document.getElementById("successMessage"),
     errorMessage: document.getElementById("modalLoseVidas"),
-    modal_de_celebracion: document.getElementById("modal-de-celebracion"),
+    winMessage: document.getElementById("WinMessage"),
     cuentaRegresiva: document.getElementById("cuentaRegresiva"),
     racha: document.getElementById("racha"),
 };
@@ -132,34 +130,24 @@ function sincronizarState() {
     estado.gusanito_modal_pregunta_rapida === false ? el.overlayOperacion.classList.add("hidden") : el.overlayOperacion.classList.remove("hidden");
     estado.gusanito_mensaje_corecto === false ? el.successMessage.classList.add("hidden") : el.successMessage.classList.remove("hidden");
     estado.gusanito_mensaje_de_error === false ? el.errorMessage.classList.add("hidden") : el.errorMessage.classList.remove("hidden");
-    estado.mensajeDeGanar === false ? el.modal_de_celebracion.classList.add("hidden") : el.modal_de_celebracion.classList.remove("hidden");
+    estado.mensajeDeGanar === false ? el.winMessage.classList.add("hidden") : el.winMessage.classList.remove("hidden");
 
     // Estados de juegos y pantallas
-    if (estado.juegoGusanito === false) {
-        el.pantallaGusanito.classList.add("hidden");
-        el.pantallaGusanito.classList.replace("opacity-0", "opacity-1");
-    } else {
-        el.pantallaGusanito.classList.remove("hidden");
-    }
+    estado.juegoGusanito === false ? el.pantallaGusanito.classList.add("hidden") : el.pantallaGusanito.classList.remove("hidden");
     estado.juegoSopa === false ? el.pantallaSopa.classList.add("hidden") : el.pantallaSopa.classList.remove("hidden");
     estado.quiz === false ? el.quizContainer.classList.add("hidden") : el.quizContainer.classList.remove("hidden");
-    estado.modalPantallaFin === false ? el.pantallaFin.classList.add("hidden") : el.pantallaFin.classList.remove("hidden");
 
 }
 function volverAlQuiz() {
     estado.quiz = true;
+    estado.juegoGusanito = false;
+    estado.juegoSopa = false;
     estado.mensajeDeGanar = false;
-    estado.gusanito_modal_pregunta_rapida = false;
     estado.gusanito_mensaje_corecto = false;
     estado.gusanito_mensaje_de_error = false;
-    estado.juegoGusanito = false;
-    el.infoUser.classList.remove("hidden");
-    el.questionsContainer.classList.remove("blur-sm");
-    el.pantallaJuego.classList.add("hidden");
-    el.pantallaInicio.classList.replace("opacity-0", "opacity-1");
-    el.questionsContainer.classList.remove("hidden");
+    estado.gusanito_modal_pregunta_rapida = false;
     sincronizarState();
-    siguientePregunta();
+
 }
 /* ---------- Flujo principal ---------- */
 
@@ -270,28 +258,26 @@ function verificarRespuesta(indice, pregunta) {
         "has-[:checked]:border-primary", "has-[:checked]:bg-primary/10"
     ];
 
+    // 1. Limpiar todas las clases de estado e interacción previas en todas las opciones.
     opcionesNodes.forEach(n => {
         n.classList.remove(...classesToClear);
     });
 
-    estado.preguntasContestadas++;
-    estado.progreso++;
-
     if (indice === pregunta.correcta) {
         opcionSeleccionada.classList.add("border-success", "bg-success/10");
-        estado.preguntasAcertadas++;
+        estado.preguntasContestadas++;
+        estado.progreso++;
+
         actualizarContadores();
         setTimeout(siguientePregunta, 600);
     } else {
         opcionSeleccionada.classList.add("border-danger", "bg-danger/10");
         opcionesNodes[pregunta.correcta].classList.add("border-success", "bg-success/10");
         estado.vidas--;
-        estado.preguntasErradas++;
         actualizarVidasUI();
-        actualizarContadores();
 
         setTimeout(() => {
-            if (estado.vidas <= 0) {
+            if (estado.vidas <= 4) {
                 el.questionsContainer.classList.add('blur-sm');
                 el.pantallaFin.classList.replace('hidden', 'block');
             } else {
@@ -299,7 +285,6 @@ function verificarRespuesta(indice, pregunta) {
             }
         }, 800);
     }
-    actualizarContadores();
 }
 
 function saltarPregunta() {
@@ -307,23 +292,8 @@ function saltarPregunta() {
     (estado.vidas <= 0) ? mostrarPantalla("fin") : siguientePregunta();
 }
 
-
 function actualizarContadores() {
-    // Tu juego limita a 16 preguntas, por lo que este es el total base.
-    const totalPreguntas = 16;
-
-    // Calcula el porcentaje de progreso (limitado a un máximo de 100%)
-    const porcentaje = Math.min(100, (estado.progreso / totalPreguntas) * 100);
-
-    // 1. Actualiza los contadores numéricos (texto: 5 de 20, etc.)
-    document.getElementById("contadorPreguntas").innerText = estado.preguntasContestadas;
-    el.totalPreguntas.innerText = totalPreguntas;
-    el.numeroDePregunta.innerText = estado.preguntasContestadas + 1;
-
-    // 2. Actualiza la barra de progreso visual
-    if (el.barraProgreso) {
-        el.barraProgreso.style.width = `${porcentaje}%`;
-    }
+    document.getElementById("contadorPreguntas").innerText = estado.preguntasContestadas; el.progresoEl.innerText = estado.progreso;
 }
 function actualizarVidasUI() {
     el.vidasEl.innerText = estado.vidas;
@@ -406,7 +376,7 @@ function clampCelda(e) {
     const r = Math.max(0, Math.min(sopa.gridSize - 1, Math.floor(y / sopa.cellSize)));
     return { r, c };
 }
-
+// ‘Snap’ de dirección a la línea recta más cercana (horizontal, vertical o diagonal perfecta)
 function snapCelda(start, rawEnd) {
     const dr = rawEnd.r - start.r, dc = rawEnd.c - start.c;
     if (dr === 0 && dc === 0) return rawEnd;
@@ -442,16 +412,15 @@ let stateAnswer = false;
 function iniciarGusanito() {
     el.infoUser.classList.add("hidden");
     estado.quiz = true;
-    estado.modalPantallaFin = false;
-    estado.juegoSopa = false;
-    estado.juegoGusanito = true;
+    el.pantallaFin.classList.add("hidden");
+    el.pantallaSopa.classList.replace("block", "hidden");
+    el.pantallaGusanito.classList.remove("hidden")
     el.pantallaGusanito.classList.replace("opacity-0", "opacity-1")
     gusanito.canvas = document.getElementById("gusanitoCanvas");
     gusanito.ctx = gusanito.canvas.getContext("2d");
     gusanito.box = 18; // tamaño del grid
     resetSnake();
     document.addEventListener("keydown", teclaGusanito);
-    sincronizarState();
 }
 
 
@@ -657,9 +626,6 @@ function modalEnviar() {
     }
 
     if (respuesta === gusanito.currentResult) {
-        btnResolver.classList.add("hidden");
-        btnResolver.disabled = true;
-
         gusanito.aciertos++;
         document.getElementById("aciertosG").innerText = gusanito.aciertos;
         estado.juegoGusanito = true;
@@ -670,57 +636,51 @@ function modalEnviar() {
 
         setTimeout(() => {
             estado.gusanito_mensaje_corecto = false;
-            sincronizarState();
-        }, 2000);
-
+        }, 1000);
 
         if (gusanito.aciertos >= 3) {
+            gusanito.loopId ? clearInterval(gusanito.loopId) : null;
+            document.removeEventListener("keydown", teclaGusanito);
             gusanito.streak++;
-            el.racha.innerText = gusanito.streak;
             estado.vidas += 2;
 
+            if (gusanito.streak >= 2) {
+                el.racha.innerText = gusanito.streak;
+                let segundos = 3;
+                estado.gusanito_mensaje_corecto = false;
+                estado.mensajeDeGanar = true;
+                sincronizarState();
+
+                setTimeout(() => {
+                    el.cuentaRegresiva.classList.remove("hidden");
+                }, 800);
+
+                let tempSegundos = setInterval(() => {
+                    segundos--;
+                    el.cuentaRegresiva.innerText = segundos;
+                    if (segundos === 0) {
+                        ContinuarQuiz();
+                        clearInterval(tempSegundos);
+                    }
+                }, 600);
+
+                sincronizarState();
+                actualizarVidasUI();
+
+            }
+            actualizarVidasUI();
         }
 
     } else {
         gusanito.streak = 0;
-        el.racha.innerText = gusanito.streak;
         estado.gusanito_mensaje_de_error = true;
         estado.gusanito_mensaje_corecto = false;
         sincronizarState();
     }
 
-    if (gusanito.streak >= 2) {
-        let segundos = 3;
-        estado.gusanito_mensaje_corecto = false;
-        estado.mensajeDeGanar = true;
-
-        setTimeout(() => {
-            el.cuentaRegresiva.classList.remove("hidden");
-        }, 800);
-        let tempSegundos = setInterval(() => {
-            segundos--;
-            el.cuentaRegresiva.innerText = segundos;
-            if (segundos === 0) {
-                clearInterval(tempSegundos);
-                estado.modalPantallaFin = false;
-                gusanito.aciertos = 0;
-                gusanito.streak = 0;
-                el.racha.innerText = gusanito.streak;
-                estado.vidas = 2
-                el.vidasEl.innerText = estado.vidas;
-                btnResolver.classList.remove("hidden");
-                btnResolver.disabled = false;
-                siguientePregunta();
-                volverAlQuiz();
-            }
-        }, 600);
-        sincronizarState();
-    }
 }
 
 function modalCerrar() {
-    document.getElementById("btnEnviar").disabled = false;
-    document.getElementById("btnEnviar").classList.remove("hidden");
     estado.gusanito_modal_pregunta_rapida = false;
     estado.gusanito_mensaje_de_error = false;
     estado.gusanito_mensaje_corecto = false;
@@ -730,6 +690,20 @@ function modalCerrar() {
     generarComidaGusanito();
 }
 
+function ContinuarQuiz() {
+    estado.quiz = true;
+    estado.mensajeDeGanar = false;
+    estado.gusanito_modal_pregunta_rapida = false;
+    estado.gusanito_mensaje_corecto = false;
+    estado.gusanito_mensaje_de_error = false;
+    estado.juegoGusanito = false;
+    el.infoUser.classList.remove("hidden");
+    el.questionsContainer.classList.remove("blur-sm");
+    el.pantallaJuego.classList.add("hidden");
+    el.pantallaInicio.classList.replace("opacity-0", "opacity-1");
+    el.questionsContainer.classList.remove("hidden");
+    sincronizarState();
+}
 
 
 function verificarOperacion() {
