@@ -66,7 +66,7 @@ const BANCO = [
     { materia: "Cultura Ciudadana", grado: "10", dificultad: "dificil", pregunta: "La participación ciudadana NO incluye:", opciones: ["Cabildo abierto", "Plebiscito", "Acción de tutela", "Revocatoria del mandato"], correcta: 2 },
     { materia: "Cultura Ciudadana", grado: "11", dificultad: "dificil", pregunta: "La Constitución colombiana vigente es de:", opciones: ["1886", "1991", "2000", "2010"], correcta: 1 },
 ];
-
+const totalPreguntasBase = 16;
 /* Estado del juego */
 let estado = {
     //estado de Modal de Inicio
@@ -91,6 +91,7 @@ let estado = {
     gusanito_mensaje_de_error: false,
     gusanito_modal_pregunta_rapida: false,
     mensajeDeGanar: false,
+    celebracionSopa: false
 };
 let btnResolver = document.getElementById("btnEnviar");
 /* Elementos */
@@ -128,7 +129,10 @@ const el = {
     preguntasAcertadas: document.getElementById("preguntasAcertadas"),
     preguntasErradas: document.getElementById("preguntasEquivocadas"),
     vidasGanadas: document.getElementById("vidasDelJuego"),
-    eventoPause: document.getElementById("pauseGusanito")
+    eventoPause: document.getElementById("pauseGusanito"),
+    celebracionSopa: document.getElementById("modal-de-celebracion-sopa"),
+    cuentaRegresiva1: document.getElementById("cuentaRegresiva1"),
+    finQuiz: document.getElementById("finQuiz"),
 };
 
 
@@ -155,6 +159,7 @@ function sincronizarState() {
 
 
     // Estados de modales y mensajes
+    estado.celebracionSopa === false ? el.celebracionSopa.classList.add("hidden") : el.celebracionSopa.classList.remove("hidden");
     estado.modalInicio === false ? el.pantallaInicio.classList.add("hidden") : el.pantallaInicio.classList.remove("hidden");
     estado.gusanito_modal_pregunta_rapida === false ? el.overlayOperacion.classList.add("hidden") : el.overlayOperacion.classList.remove("hidden");
     estado.gusanito_mensaje_corecto === false ? el.successMessage.classList.add("hidden") : el.successMessage.classList.remove("hidden");
@@ -311,6 +316,9 @@ function verificarRespuesta(indice, pregunta) {
     el.numeroDePregunta.innerText = estado.preguntasContestadas;
     estado.preguntasContestadas++;
     estado.progreso++;
+    if (estado.preguntasContestadas === totalPreguntasBase) {
+        el.finQuiz.classList.replace('hidden', 'fixed');
+    }
 
     if (indice === pregunta.correcta) {
         opcionSeleccionada.classList.add("border-success", "bg-success/10");
@@ -343,14 +351,19 @@ function verificarRespuesta(indice, pregunta) {
 }
 
 function saltarPregunta() {
-    estado.vidas--; actualizarVidasUI(); estado.preguntasContestadas++; actualizarContadores();
-    (estado.vidas <= 0) ? mostrarPantalla("fin") : siguientePregunta();
+    estado.vidas--;
+    siguientePregunta();
+    actualizarVidasUI();
+    estado.preguntasContestadas++;
+    actualizarContadores();
+    (estado.vidas <= 0) ? estado.modalPantallaFin = true : siguientePregunta();
+    sincronizarState();
 }
 
 
 function actualizarContadores() {
     // Tu juego limita a 16 preguntas, por lo que este es el total base.
-    const totalPreguntas = 16;
+    let totalPreguntas = totalPreguntasBase;
 
     // Calcula el porcentaje de progreso (limitado a un máximo de 100%)
     const porcentaje = Math.min(100, (estado.progreso / totalPreguntas) * 100);
@@ -743,7 +756,7 @@ function modalEnviar() {
         }, 2000);
 
 
-        if (gusanito.aciertos >= 3) {
+        if (gusanito.aciertos >= 1) {
             gusanito.streak++;
             el.racha.innerText = gusanito.streak;
             estado.vidas += 2;
@@ -768,10 +781,10 @@ function modalEnviar() {
         estado.mensajeDeGanar = true;
 
 
-
         setTimeout(() => {
             el.cuentaRegresiva.classList.remove("hidden");
         }, 800);
+
         let tempSegundos = setInterval(() => {
             segundos--;
             el.cuentaRegresiva.innerText = segundos;
@@ -788,7 +801,7 @@ function modalEnviar() {
                 siguientePregunta();
                 volverAlQuiz();
             }
-        }, 600);
+        }, 800);
         sincronizarState();
     }
 }
@@ -1025,8 +1038,34 @@ function checkSelectedWord() {
 
         // 3. Verificar si el juego terminó
         if (SopaConfig.foundWords.size === SopaConfig.words.length) {
-            alert("¡Felicidades! Encontraste todas las palabras. Ganaste +2 vidas.");
+            estado.celebracionSopa = true;
+            el.celebracionSopa.classList.remove('hidden');
             estado.vidas += 2;
+            let segundos = 3;
+
+            setTimeout(() => {
+                el.cuentaRegresiva.classList.remove("hidden");
+            }, 800);
+
+            let tempSegundos = setInterval(() => {
+                segundos--;
+                el.cuentaRegresiva1.innerText = segundos;
+                if (segundos === 0) {
+                    clearInterval(tempSegundos);
+                    estado.modalPantallaFin = false;
+                    gusanito.aciertos = 0;
+                    gusanito.streak = 0;
+                    el.racha.innerText = gusanito.streak;
+                    estado.vidas = 2
+                    el.vidasEl.innerText = estado.vidas;
+                    btnResolver.classList.remove("hidden");
+                    btnResolver.disabled = false;
+                    siguientePregunta();
+                    volverAlQuiz();
+                }
+            }, 800);
+            sincronizarState();
+            sincronizarState();
             actualizarVidasUI();
             forzarSalirSopa(); // Vuelve al juego principal
         }
