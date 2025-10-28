@@ -123,10 +123,38 @@ const el = {
     modal_de_celebracion: document.getElementById("modal-de-celebracion"),
     cuentaRegresiva: document.getElementById("cuentaRegresiva"),
     racha: document.getElementById("racha"),
+    vidasGanadas: document.getElementById("vidasGanadas"),
+    preguntasAcertadas: document.getElementById("preguntasAcertadas"),
+    preguntasErradas: document.getElementById("preguntasEquivocadas"),
+    vidasGanadas: document.getElementById("vidasDelJuego"),
 };
 
 
 function sincronizarState() {
+
+    el.vidasGanadas.innerHTML = '';
+    for (let vida = 1; vida <= estado.vidas; vida++) {
+
+        el.vidasGanadas.innerHTML += `<span class="material-symbols-outlined text-red-400 dark:text-red-200 text-xl">favorite_border</span>`
+
+        function perderVida() {
+            if (estado.vidas > 0) {
+                estado.vidas--;
+                // Obtener todos los corazones
+                const corazones = el.vidasGanadas.querySelectorAll('span');
+                // Eliminar el último corazón
+                if (corazones.length > 0) {
+                    corazones[corazones.length - 1].remove();
+                }
+            }
+        }
+
+    }
+
+
+
+
+
     // Estados de modales y mensajes
     estado.modalInicio === false ? el.pantallaInicio.classList.add("hidden") : el.pantallaInicio.classList.remove("hidden");
     estado.gusanito_modal_pregunta_rapida === false ? el.overlayOperacion.classList.add("hidden") : el.overlayOperacion.classList.remove("hidden");
@@ -255,6 +283,7 @@ function siguientePregunta() {
         // 7. Adjuntar la opción completa al contenedor principal
         el.optionsQuestion.appendChild(label);
     });
+
 }
 
 function verificarRespuesta(indice, pregunta) {
@@ -280,6 +309,8 @@ function verificarRespuesta(indice, pregunta) {
     if (indice === pregunta.correcta) {
         opcionSeleccionada.classList.add("border-success", "bg-success/10");
         estado.preguntasAcertadas++;
+        el.preguntasAcertadas.innerText = estado.preguntasAcertadas;
+        sincronizarState();
         actualizarContadores();
         setTimeout(siguientePregunta, 600);
     } else {
@@ -287,6 +318,8 @@ function verificarRespuesta(indice, pregunta) {
         opcionesNodes[pregunta.correcta].classList.add("border-success", "bg-success/10");
         estado.vidas--;
         estado.preguntasErradas++;
+        el.preguntasErradas.innerText = estado.preguntasErradas;
+        sincronizarState();
         actualizarVidasUI();
         actualizarContadores();
 
@@ -689,10 +722,16 @@ function modalEnviar() {
         sincronizarState();
     }
 
+    for (let vidas = 0; vidas < gusanito.streak; vidas++) {
+        el.vidasGanadas.innerHTML += `<span class="material-symbols-outlined text-red-500">favorite</span>`;
+    }
+
     if (gusanito.streak >= 2) {
         let segundos = 3;
         estado.gusanito_mensaje_corecto = false;
         estado.mensajeDeGanar = true;
+
+
 
         setTimeout(() => {
             el.cuentaRegresiva.classList.remove("hidden");

@@ -265,20 +265,7 @@
 												class="text-primary tracking-light text-xl md:text-xl font-bold leading-tight">
 												Matemáticas
 											</div>
-											<div class="flex items-center gap-2">
-												<span
-													class="material-symbols-outlined text-danger text-xl animate-pulse"
-													style="animation-delay: 0.1s;">favorite</span>
-												<span
-													class="material-symbols-outlined text-danger text-xl animate-pulse"
-													style="animation-delay: 0.2s;">favorite</span>
-												<span
-													class="material-symbols-outlined text-danger text-xl animate-pulse"
-													style="animation-delay: 0.3s;">favorite</span>
-												<span
-													class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-xl">favorite_border</span>
-												<span
-													class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-xl">favorite_border</span>
+											<div class="flex items-center gap-2" id="vidasDelJuego">
 											</div>
 										</div>
 
@@ -331,13 +318,16 @@
 										<div class="space-y-3 text-sm">
 											<div class="flex justify-between">
 												<span
-													class="font-semibold text-gray-600 dark:text-gray-400">usuario:</span>
-												<span id="usuarioNombre" class="font-medium">Invitado</span>
+													class="font-semibold text-gray-600 dark:text-gray-400">Estudiante:</span>
+												<span id="usuarioNombre"
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">Invitado</span>
 											</div>
 											<div class="flex justify-between">
 												<span
 													class="font-semibold text-gray-600 dark:text-gray-400">Grado:</span>
-												<span id="spanGrado" class="font-medium">6º Primaria</span>
+												<span id="spanGrado"
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">6º
+													Primaria</span>
 											</div>
 											<div class="flex justify-between">
 												<span
@@ -359,7 +349,25 @@
 											<div class="flex justify-between">
 												<span
 													class="font-semibold text-gray-600 dark:text-gray-400">Contestadas:</span>
-												<span class="font-medium" id="contadorPreguntas">0</span>
+												<span
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary"
+													id="contadorPreguntas">0</span>
+											</div>
+
+											<div class="flex justify-between">
+												<span
+													class="font-semibold text-gray-600 dark:text-gray-400">Acertadas:</span>
+												<span
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary"
+													id="preguntasAcertadas">0</span>
+											</div>
+
+											<div class="flex justify-between">
+												<span
+													class="font-semibold text-gray-600 dark:text-gray-400">Equivocadas:</span>
+												<span
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary"
+													id="preguntasEquivocadas">0</span>
 											</div>
 										</div>
 									</div>
@@ -515,12 +523,12 @@
 																		class="flex  flex-1 flex-col gap-1 rounded-xl p-2 bg-background-light dark:bg-gray-800">
 																		<p
 																			class="text-[#111618] dark:text-gray-300 text-sm font-medium leading-normal">
-																			Vidas del Quiz</p>
+																			Vidas Ganadas</p>
 																		<div class="flex gap-1 items-center">
-																			<span id="vidasTop"
-																				class="text-[#111618] dark:text-white tracking-light text-md font-bold">5</span>
-																			<span
-																				class="material-symbols-outlined text-red-500">favorite</span>
+																			<div id="vidasGanadas"
+																				class="text-md font-bold">
+
+																			</div>
 																		</div>
 																	</div>
 
