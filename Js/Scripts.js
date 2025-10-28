@@ -79,6 +79,7 @@ let estado = {
     // Estados de usuario y progreso
     preguntasAcertadas: 0,
     preguntasErradas: 0,
+    preguntasSaltadas: 0,
     vidas: 5,
     grado: "5",
     dificultad: "facil",
@@ -108,7 +109,6 @@ const el = {
     pantallaGusanito: document.getElementById("pantallaGusanito"),
     quizQuestion: document.getElementById("pregunta"),
     optionsQuestion: document.getElementById("opciones"),
-    vidasEl: document.getElementById("vidas"),
     contadorPreguntas: document.getElementById("contadorPreguntas"),
     barraProgreso: document.getElementById("barraProgresoVisual"),
     seletGrado: document.getElementById("selectGrado"),
@@ -124,7 +124,6 @@ const el = {
     modal_de_celebracion: document.getElementById("modal-de-celebracion"),
     cuentaRegresiva: document.getElementById("cuentaRegresiva"),
     racha: document.getElementById("racha"),
-    vidasGanadas: document.getElementById("vidasGanadas"),
     preguntasContestadas: document.getElementById("preguntasContestadas"),
     preguntasAcertadas: document.getElementById("preguntasAcertadas"),
     preguntasErradas: document.getElementById("preguntasEquivocadas"),
@@ -133,30 +132,22 @@ const el = {
     celebracionSopa: document.getElementById("modal-de-celebracion-sopa"),
     cuentaRegresiva1: document.getElementById("cuentaRegresiva1"),
     finQuiz: document.getElementById("finQuiz"),
+    preguntasSaltadas: document.getElementById("preguntasSaltadas"),
 };
 
+function perderVida() {
+    if (estado.vidas > 0) {
+        estado.vidas--;
+        // Obtener todos los corazones
+        const corazones = el.vidasGanadas.querySelectorAll('span');
+        // Eliminar el último corazón
+        if (corazones.length > 0) {
+            corazones[corazones.length - 1].remove();
+        }
+    }
+}
 
 function sincronizarState() {
-
-    el.vidasGanadas.innerHTML = '';
-    for (let vida = 1; vida <= estado.vidas; vida++) {
-
-        el.vidasGanadas.innerHTML += `<span class="material-symbols-outlined text-red-400 dark:text-red-200 text-xl">favorite_border</span>`
-
-        function perderVida() {
-            if (estado.vidas > 0) {
-                estado.vidas--;
-                // Obtener todos los corazones
-                const corazones = el.vidasGanadas.querySelectorAll('span');
-                // Eliminar el último corazón
-                if (corazones.length > 0) {
-                    corazones[corazones.length - 1].remove();
-                }
-            }
-        }
-
-    }
-
 
     // Estados de modales y mensajes
     estado.celebracionSopa === false ? el.celebracionSopa.classList.add("hidden") : el.celebracionSopa.classList.remove("hidden");
@@ -180,19 +171,26 @@ function sincronizarState() {
 
 }
 function volverAlQuiz() {
-    estado.quiz = true;
-    estado.mensajeDeGanar = false;
-    estado.gusanito_modal_pregunta_rapida = false;
-    estado.gusanito_mensaje_corecto = false;
-    estado.gusanito_mensaje_de_error = false;
-    estado.juegoGusanito = false;
-    el.infoUser.classList.remove("hidden");
-    el.questionsContainer.classList.remove("blur-sm");
-    el.pantallaJuego.classList.add("hidden");
-    el.pantallaInicio.classList.replace("opacity-0", "opacity-1");
-    el.questionsContainer.classList.remove("hidden");
     sincronizarState();
-    siguientePregunta();
+    if (estado.vidas == 0) {
+        alert("No puedes Volver al Quiz si no tienes vidas");
+        return
+    } else {
+
+        estado.quiz = true;
+        estado.mensajeDeGanar = false;
+        estado.gusanito_modal_pregunta_rapida = false;
+        estado.gusanito_mensaje_corecto = false;
+        estado.gusanito_mensaje_de_error = false;
+        estado.juegoGusanito = false;
+        el.infoUser.classList.remove("hidden");
+        el.questionsContainer.classList.remove("blur-sm");
+        el.pantallaJuego.classList.add("hidden");
+        el.pantallaInicio.classList.replace("opacity-0", "opacity-1");
+        el.questionsContainer.classList.remove("hidden");
+        sincronizarState();
+        siguientePregunta();
+    }
 }
 /* ---------- Flujo principal ---------- */
 
@@ -351,6 +349,8 @@ function verificarRespuesta(indice, pregunta) {
 }
 
 function saltarPregunta() {
+    estado.preguntasSaltadas++;
+    el.preguntasSaltadas.innerText = estado.preguntasSaltadas;
     estado.vidas--;
     siguientePregunta();
     actualizarVidasUI();
@@ -379,7 +379,13 @@ function actualizarContadores() {
     }
 }
 function actualizarVidasUI() {
-    el.vidasEl.innerText = estado.vidas;
+    el.vidasGanadas.innerHTML = '';
+    for (let vida = 1; vida <= estado.vidas; vida++) {
+
+        el.vidasGanadas.innerHTML += `<span class="material-symbols-outlined text-red-400 dark:text-red-200 text-xl">favorite_border</span>`
+
+    }
+
 }
 
 function reiniciarTodo() {
@@ -756,10 +762,10 @@ function modalEnviar() {
         }, 2000);
 
 
-        if (gusanito.aciertos >= 1) {
+        if (gusanito.aciertos % 3 === 0) {
             gusanito.streak++;
             el.racha.innerText = gusanito.streak;
-            estado.vidas += 2;
+            estado.vidas += 1;
 
         }
 
@@ -779,6 +785,7 @@ function modalEnviar() {
         let segundos = 3;
         estado.gusanito_mensaje_corecto = false;
         estado.mensajeDeGanar = true;
+        el.vidasGanadas.innerText = estado.vidas;
 
 
         setTimeout(() => {
@@ -794,8 +801,6 @@ function modalEnviar() {
                 gusanito.aciertos = 0;
                 gusanito.streak = 0;
                 el.racha.innerText = gusanito.streak;
-                estado.vidas = 2
-                el.vidasEl.innerText = estado.vidas;
                 btnResolver.classList.remove("hidden");
                 btnResolver.disabled = false;
                 siguientePregunta();
@@ -1057,7 +1062,7 @@ function checkSelectedWord() {
                     gusanito.streak = 0;
                     el.racha.innerText = gusanito.streak;
                     estado.vidas = 2
-                    el.vidasEl.innerText = estado.vidas;
+                    el.vidasGanadas.innerText = estado.vidas;
                     btnResolver.classList.remove("hidden");
                     btnResolver.disabled = false;
                     siguientePregunta();

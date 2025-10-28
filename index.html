@@ -346,14 +346,6 @@
 													Medio
 												</span>
 											</div>
-											<div class="flex justify-between">
-												<span
-													class="font-semibold text-gray-600 dark:text-gray-400">Vidas:</span>
-												<span id="vidas"
-													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary">
-
-												</span>
-											</div>
 
 											<div class="flex justify-between">
 												<span
@@ -377,6 +369,14 @@
 												<span
 													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary"
 													id="preguntasEquivocadas">0</span>
+											</div>
+
+											<div class="flex justify-between">
+												<span
+													class="font-semibold text-gray-600 dark:text-gray-400">Saltadas:</span>
+												<span
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary"
+													id="preguntasSaltadas">0</span>
 											</div>
 										</div>
 									</div>
@@ -427,7 +427,7 @@
 
 													</div>
 													<div class="w-[20%] h-[100%]">
-														<button onclick="forzarSalirGusanito()"
+														<button onclick="volverAlQuiz()"
 															class="w-[100%] bg-primary text-white font-bold py-2 px-4 rounded-md hover:bg-primary/90 text-sm transition-transform duration-200 hover:scale-105 text-sm">
 															Volver al Quiz
 														</button>
