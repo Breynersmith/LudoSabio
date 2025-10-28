@@ -192,11 +192,16 @@ function volverAlQuiz() {
 /* ---------- Flujo principal ---------- */
 
 
+let clave = document.getElementById("clave");
 function entrar() {
+    if (clave.value === "") {
+        alert("Ingrese una clave");
+        return;
+    }
     el.dataName.innerText = el.seletName.value || "Invitado";
     spanGrado.innerText = el.seletGrado.value;
     spanDificultad.innerText = el.selectDificultad.value;
-    el.numeroDePregunta.innerText = estado.preguntasContestadas == 0 || estado.preguntasContestadas == 1 ? '1' : estado.preguntasContestadas + 1;
+    el.numeroDePregunta.innerText = estado.preguntasContestadas == 0 || estado.preguntasContestadas == 1 ? '1' : estado.preguntasContestadas;
     setTimeout(() => {
         document.getElementById("header").classList.remove("hidden");
         estado.quiz = true;
@@ -303,13 +308,14 @@ function verificarRespuesta(indice, pregunta) {
     opcionesNodes.forEach(n => {
         n.classList.remove(...classesToClear);
     });
-
+    el.numeroDePregunta.innerText = estado.preguntasContestadas;
     estado.preguntasContestadas++;
     estado.progreso++;
 
     if (indice === pregunta.correcta) {
         opcionSeleccionada.classList.add("border-success", "bg-success/10");
         estado.preguntasAcertadas++;
+        estado.preguntasContestadas++;
         el.preguntasAcertadas.innerText = estado.preguntasAcertadas;
         sincronizarState();
         actualizarContadores();
@@ -470,7 +476,7 @@ function procesarSeleccionSopa() {
 
 
 /* ===================== GUSANITO (Snake) ===================== */
-let gusanito = { canvas: null, ctx: null, box: 24, snake: [], dir: "DOWN", food: {}, loopId: null, aciertos: 0, awaitingAnswer: false, currentResult: null, streak: 0 };
+let gusanito = { canvas: null, ctx: null, box: 18, snake: [], dir: "DOWN", food: {}, loopId: null, aciertos: 0, awaitingAnswer: false, currentResult: null, streak: 0 };
 
 let stateAnswer = false;
 function iniciarGusanito() {
@@ -533,11 +539,9 @@ headUpImg.src = "./assets/head-up.png";
 const headDownImg = new Image();
 headDownImg.src = "./assets/head-down.png";
 
-const bodyHorizontalImg = new Image();
-bodyHorizontalImg.src = "./assets/body_horizontal.png";
+const body = new Image();
+body.src = "./assets/body.png";
 
-const bodyVerticalImg = new Image();
-bodyVerticalImg.src = "./assets/body_vertical.png";
 
 const appleImg = new Image();
 appleImg.src = "./assets/appleImg.png";
@@ -548,8 +552,12 @@ function loopGusanito() {
     ctx.fillStyle = "#e6fffa";
     ctx.fillRect(0, 0, gusanito.canvas.width, gusanito.canvas.height);
 
+
+
+
     // Dibujar manzana
     ctx.drawImage(appleImg, gusanito.food.x, gusanito.food.y, gusanito.box, gusanito.box);
+
 
     // Dibujar serpiente
     for (let i = 0; i < gusanito.snake.length; i++) {
@@ -565,54 +573,52 @@ function loopGusanito() {
             let bodyImg;
 
             gusanito.dir == "RIGHT" ? headImg = headRightImg : gusanito.dir == "LEFT" ? headImg = headLeftImg : gusanito.dir == "UP" ? headImg = headUpImg : headImg = headDownImg;
-            gusanito.dir == "RIGHT" ? bodyImg = bodyHorizontalImg : gusanito.dir == "LEFT" ? bodyImg = bodyHorizontalImg : gusanito.dir == "UP" ? bodyImg = bodyVerticalImg : bodyImg = bodyVerticalImg;
 
             ctx.drawImage(headImg, -gusanito.box / 2, -gusanito.box / 2, gusanito.box, gusanito.box);
 
             ctx.restore();
         } else {
-            // Determinar orientación del cuerpo
             let previous = gusanito.snake[i - 1];
             let next = gusanito.snake[i + 1];
-            let bodyImg; // ← Variable correcta
+
+            // Tamaño normal de la celda
+            const baseSize = gusanito.box;
+            let sizeWidthSerpiente = baseSize;
+            let sizeHeightSerpiente = baseSize;
+            let bodyImg = body;
+            let offsetY = 0;
+            let offsetX = 0;
 
             if (previous && next) {
-                // Verificar si es movimiento VERTICAL (misma columna X)
-                if (previous.x === segment.x && next.x === segment.x) {
-                    bodyImg = bodyVerticalImg;
+                // Recto horizontal
+                if (previous.y === segment.y && next.y === segment.y) {
+                    sizeWidthSerpiente = 14;
+                    sizeHeightSerpiente = baseSize;
+                    offsetX = (baseSize - sizeWidthSerpiente) / 2;
+                    offsetY = 0;
                 }
-                // Verificar si es movimiento HORIZONTAL (misma fila Y)
-                else if (previous.y === segment.y && next.y === segment.y) {
-                    bodyImg = bodyHorizontalImg;
+                // Recto vertical
+                else if (previous.x === segment.x && next.x === segment.x) {
+                    sizeWidthSerpiente = baseSize;
+                    sizeHeightSerpiente = 14;
+                    offsetX = 0;
+                    offsetY = (baseSize - sizeHeightSerpiente) / 2;
                 }
-                // Curva (esquina)
-                else {
-                    bodyImg = bodyHorizontalImg;
-                }
-            }
-            // Último segmento (cola) - verificar con el anterior
-            else if (previous) {
-                // Si el segmento anterior está en la misma FILA (mismo Y) → horizontal
-                if (previous.y === segment.y) {
-                    bodyImg = bodyHorizontalImg;
-                }
-                // Si el segmento anterior está en la misma COLUMNA (mismo X) → vertical
-                else if (previous.x === segment.x) {
-                    bodyImg = bodyVerticalImg;
-                }
-                // Fallback
-                else {
-                    bodyImg = bodyHorizontalImg;
-                }
-            }
-            // Fallback final
-            else {
-                bodyImg = bodyHorizontalImg;
             }
 
-            // Dibujar el segmento del cuerpo
-            ctx.drawImage(bodyImg, segment.x, segment.y, gusanito.box, gusanito.box);
+            // Calcular centrado
+
+
+            ctx.drawImage(
+                bodyImg,
+                segment.x + offsetX == 0 ? segment.x + 0 : segment.x + offsetX,
+                segment.y + offsetY == 0 ? segment.y + 0 : segment.y + offsetY,
+                sizeWidthSerpiente,
+                sizeHeightSerpiente
+            );
         }
+
+
     }
 
     if (gusanito.awaitingAnswer) return;
