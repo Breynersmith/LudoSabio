@@ -75,7 +75,7 @@ let estado = {
     juegoGusanito: false,
     juegoSopa: false,
     quiz: false,
-
+    isPaused: false,
     // Estados de usuario y progreso
     preguntasAcertadas: 0,
     preguntasErradas: 0,
@@ -124,9 +124,11 @@ const el = {
     cuentaRegresiva: document.getElementById("cuentaRegresiva"),
     racha: document.getElementById("racha"),
     vidasGanadas: document.getElementById("vidasGanadas"),
+    preguntasContestadas: document.getElementById("preguntasContestadas"),
     preguntasAcertadas: document.getElementById("preguntasAcertadas"),
     preguntasErradas: document.getElementById("preguntasEquivocadas"),
     vidasGanadas: document.getElementById("vidasDelJuego"),
+    eventoPause: document.getElementById("pauseGusanito")
 };
 
 
@@ -152,9 +154,6 @@ function sincronizarState() {
     }
 
 
-
-
-
     // Estados de modales y mensajes
     estado.modalInicio === false ? el.pantallaInicio.classList.add("hidden") : el.pantallaInicio.classList.remove("hidden");
     estado.gusanito_modal_pregunta_rapida === false ? el.overlayOperacion.classList.add("hidden") : el.overlayOperacion.classList.remove("hidden");
@@ -169,6 +168,7 @@ function sincronizarState() {
     } else {
         el.pantallaGusanito.classList.remove("hidden");
     }
+    estado.isPaused ? el.eventoPause.classList.remove("hidden") : el.eventoPause.classList.add("hidden");
     estado.juegoSopa === false ? el.pantallaSopa.classList.add("hidden") : el.pantallaSopa.classList.remove("hidden");
     estado.quiz === false ? el.quizContainer.classList.add("hidden") : el.quizContainer.classList.remove("hidden");
     estado.modalPantallaFin === false ? el.pantallaFin.classList.add("hidden") : el.pantallaFin.classList.remove("hidden");
@@ -196,6 +196,7 @@ function entrar() {
     el.dataName.innerText = el.seletName.value || "Invitado";
     spanGrado.innerText = el.seletGrado.value;
     spanDificultad.innerText = el.selectDificultad.value;
+    el.numeroDePregunta.innerText = estado.preguntasContestadas == 0 || estado.preguntasContestadas == 1 ? '1' : estado.preguntasContestadas + 1;
     setTimeout(() => {
         document.getElementById("header").classList.remove("hidden");
         estado.quiz = true;
@@ -351,7 +352,7 @@ function actualizarContadores() {
     // 1. Actualiza los contadores numéricos (texto: 5 de 20, etc.)
     document.getElementById("contadorPreguntas").innerText = estado.preguntasContestadas;
     el.totalPreguntas.innerText = totalPreguntas;
-    el.numeroDePregunta.innerText = estado.preguntasContestadas + 1;
+    el.numeroDePregunta.innerText = estado.preguntasContestadas == 0 ? '1' : estado.preguntasContestadas + 1;
 
     // 2. Actualiza la barra de progreso visual
     if (el.barraProgreso) {
@@ -481,9 +482,9 @@ function iniciarGusanito() {
     el.pantallaGusanito.classList.replace("opacity-0", "opacity-1")
     gusanito.canvas = document.getElementById("gusanitoCanvas");
     gusanito.ctx = gusanito.canvas.getContext("2d");
-    gusanito.box = 18; // tamaño del grid
+    gusanito.box = 18;
     resetSnake();
-    document.addEventListener("keydown", teclaGusanito);
+    document.addEventListener("keydown", teclaGusanito); document.addEventListener("keydown", pausarJuego)
     sincronizarState();
 }
 
@@ -623,6 +624,7 @@ function loopGusanito() {
     if (gusanito.dir === "UP") head.y -= gusanito.box;
     if (gusanito.dir === "DOWN") head.y += gusanito.box;
 
+
     // Colisión paredes o cuerpo
     if (head.x < 0 || head.y < 0 || head.x >= gusanito.canvas.width || head.y >= gusanito.canvas.height
         || gusanito.snake.some(s => s.x === head.x && s.y === head.y)) {
@@ -645,6 +647,33 @@ function loopGusanito() {
         el.overlayOperacion.classList.remove("hidden");
     } else {
         gusanito.snake.pop();
+    }
+}
+
+
+
+function pausarJuego(evento) {
+    if (evento.code === 'Space' && estado.juegoGusanito && estado.gusanito_modal_pregunta_rapida == false) {
+        // Prevenir el scroll del navegador al presionar espacio
+        evento.preventDefault();
+
+        estado.isPaused = !estado.isPaused;
+        sincronizarState();
+        if (estado.isPaused) {
+            // PAUSAR: detener el loop y mostrar mensaje
+            if (gusanito.loopId) {
+                clearInterval(gusanito.loopId);
+                gusanito.loopId = null; // Marcar como detenido
+            }
+
+        } else {
+            gusanito.awaitingAnswer = false;
+            // Solo iniciar si no hay un loop activo
+            if (gusanito.loopId === null) {
+                gusanito.loopId = setInterval(loopGusanito, 250);
+            }
+        }
+
     }
 }
 
@@ -675,7 +704,8 @@ function generarOperacionModalSegunNivel() {
     else if (op === "/") { // división con 2 decimales
         texto = `${a} ÷ ${b}`; result = parseFloat((a / b).toFixed(2));
     }
-    gusanito.currentResult = result; document.getElementById("modalOperacion").innerText = `${texto} = ?`;
+    gusanito.currentResult = result;
+    document.getElementById("modalOperacion").innerText = `${texto} = ?`;
     document.getElementById("modalRespuesta").value = "";
 }
 
@@ -770,9 +800,9 @@ function modalCerrar() {
 }
 
 
-
 function verificarOperacion() {
     const modalVisible = !document.getElementById("overlayOperacion").classList.contains("hidden");
+
     if (modalVisible) {
         modalEnviar();
     } else {
