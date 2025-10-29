@@ -14,33 +14,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	<link rel="stylesheet" href="Styles.css">
 
-	<script>
-		tailwind.config = {
-			darkMode: "class",
-			theme: {
-				extend: {
-					colors: {
-						"primary": "#2196F3",
-						"background-light": "#F0F8FF",
-						"background-dark": "#0D1B2A",
-					},
-					fontFamily: {
-						"display": ["Poppins", "sans-serif"]
-					},
-					borderRadius: {
-						"DEFAULT": "0.5rem",
-						"lg": "0.75rem",
-						"xl": "1rem",
-						"full": "9999px"
-					},
-					boxShadow: {
-						'soft': '0 8px 25px rgba(0, 0, 0, 0.1)',
-					}
-				},
-			},
-		}
-	</script>
-
 	<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 	<script>
 		tailwind.config = {
@@ -48,6 +21,7 @@
 			theme: {
 				extend: {
 					colors: {
+						// Colores de la segunda configuración, más completa:
 						"primary": "#13a4ec",
 						"background-light": "#f6f7f8",
 						"background-dark": "#101c22",
@@ -56,16 +30,26 @@
 						"warning": "#f39c12",
 					},
 					fontFamily: {
+						// Fuente de la segunda configuración
 						"display": ["Lexend", "sans-serif"]
 					},
 					borderRadius: {
+						// Los valores son idénticos en ambas, se mantiene la definición:
 						"DEFAULT": "0.5rem",
 						"lg": "0.75rem",
 						"xl": "1rem",
 						"full": "9999px"
 					},
+					boxShadow: {
+						// Box shadow de la primera configuración
+						'soft': '0 8px 25px rgba(0, 0, 0, 0.1)',
+					},
 					keyframes: {
+						// Keyframes de la segunda configuración
 						gradient: {
+							'0%': { backgroundPosition: '0% 50%' },
+							'50%': { backgroundPosition: '100% 50%' },
+							'100%': { backgroundPosition: '0% 50%' },
 							'0%': { backgroundPosition: '0% 50%' },
 							'50%': { backgroundPosition: '100% 50%' },
 							'100%': { backgroundPosition: '0% 50%' },
@@ -81,17 +65,6 @@
 						pulse: {
 							'0%, 100%': { transform: 'scale(1)' },
 							'50%': { transform: 'scale(1.1)' },
-						},
-						gradient: {
-							'0%': {
-								backgroundPosition: '0% 50%'
-							},
-							'50%': {
-								backgroundPosition: '100% 50%'
-							},
-							'100%': {
-								backgroundPosition: '0% 50%'
-							},
 						},
 						fadeIn: {
 							'0%': {
@@ -125,20 +98,17 @@
 								filter: 'hue-rotate(180deg)',
 							}
 						}
-
 					},
 					animation: {
+						// Animaciones de la segunda configuración
 						gradient: 'gradient 15s ease infinite',
 						float: 'float 6s ease-in-out infinite',
 						fill: 'fill 1.5s ease-out forwards',
 						pulse: 'pulse 1s ease-in-out',
-						gradient: 'gradient 15s ease infinite',
 						fadeIn: 'fadeIn 0.5s ease-out forwards',
 						wormMove: 'wormMove 2s ease-in-out infinite',
 						appleBob: 'appleBob 1.5s ease-in-out infinite'
 					},
-
-
 				},
 			},
 		}
@@ -255,9 +225,11 @@
 						</h2>
 					</div>
 					<div class="flex items-center gap-4">
-						<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-							data-alt="User avatar"
-							style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAAgJDjSVOt_ZIejlevMLMaGWliK53GLjdo3qgLDXhUyGn-jahKllMCr627aLqIzPTACDM9gXZGZEfk1L-9Xo7A9sYu_TL4mA_XmtHIBdxSdWhwxnswMyJPFQgW_WTRot0foEA42mevoBII_5HPd3DzKS1UOcN8PoFXMbqM9pfZNXCGsSfzi3eOrxxDMM9SgNjQNRcpRSRociuznblZlXsuHOq_JJt4M4yAI58_qIJbiolmzyxtBrAFH1EkTk0jxjwGD4u9dkQztkk");'>
+						<div class="flex items-center justify-center overflow-hidden bg-center bg-no-repeat aspect-square bg-gradient-to-br from-sky-200 to-purple-300  bg-cover rounded-full size-10"
+							data-alt="User avatar">
+							<h1 id="inicialName"
+								class="text-xl font-bold tracking-tight text-gray-800 dark:text-gray-100 text-center">
+							</h1>
 						</div>
 					</div>
 				</header>
@@ -773,12 +745,9 @@
 											</button>
 											<button onclick="cerrarSesion()" id="cerrarSesion"
 												class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary/20 text-primary dark:bg-primary/30 dark:text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors hover:bg-primary/30 dark:hover:bg-primary/40">
-												<span class="truncate">Cerrar Sesion</span>
+												<span class="truncate">Cerrar Sesión</span>
 											</button>
-											<button
-												class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-transparent text-[#111618] dark:text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors hover:bg-black/5 dark:hover:bg-white/10">
-												<span class="truncate">Volver al menú principal</span>
-											</button>
+
 										</div>
 									</div>
 								</div>
@@ -796,7 +765,29 @@
 
 
 
-			<script src="Js/Scripts.js"></script>
+
+			<!-- <script src="Js/Scripts.js"></script> -->
+
+			<!-- CORE -->
+			<script src="js/Scripts/core/state.js"></script>
+			<script src="js/Scripts/core/utils.js"></script>
+			<script src="js/Scripts/core/ui.js"></script>
+			<script src="js/Scripts/core/iniciar.js"></script>
+
+			<!-- QUIZ -->
+			<script src="js/Scripts/quiz/bancodepreguntas.js"></script>
+			<script src="js/Scripts/quiz/quiz.js"></script>
+
+			<!-- GUSANITO -->
+			<script src="js/Scripts/gusanito/controlSnake.js"></script>
+			<script src="js/Scripts/gusanito/snake.js"></script>
+			<script src="js/Scripts/gusanito/modalSnake.js"></script>
+			js/
+			<!-- SOPA -->
+			<script src="js/Scripts/sopasdeletras/sopaHelper.js"></script>
+			<script src="js/Scripts/sopadeletras/sopa.js"></script>
+
+
 </body>
 
 </html>
