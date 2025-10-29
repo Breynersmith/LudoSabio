@@ -2014,7 +2014,7 @@ function verificarRespuesta(indice, pregunta) {
     if (esCorrecta) {
         opcionSeleccionada.classList.add("border-success", "bg-success/10");
         estado.preguntasAcertadas++;
-        el.preguntasAcertadas.innerText = estado.preguntasAcertadas;
+        setTextToNodes(el.preguntasAcertadas, estado.preguntasAcertadas);
         sincronizarState();
         actualizarContadores();
         setTimeout(siguientePregunta, 600);
