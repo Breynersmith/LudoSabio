@@ -146,11 +146,12 @@
 
 </head>
 
-<body class="font-display text-[#333333] dark:text-gray-200  ">
+<body class="font-display text-[#333333] dark:text-gray-200 w-screen h-screen  ">
 	<div class="geo-shape square shape3 z-10"></div>
 	<div class="geo-shape circle shape4 z-10"></div>
 	<div class="geo-shape circle shape1 z-10"></div>
 	<div class="geo-shape triangle shape2 z-10"></div>
+
 
 
 	<div
@@ -162,6 +163,7 @@
 		</div>
 
 		<!-- Login -->
+
 		<div>
 			<div id="login-view" class="layout-container relative z-[9999999] flex  grow flex-col items-center justify-center opacity-100
             transition-opacity duration-500 w-screen h-[90vh] m-0">
@@ -190,7 +192,6 @@
 								<select id="selectGrado"
 									class="form-select flex w-[30%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-400 bg-white/40 dark:bg-gray-700/50 dark:text-white focus:border-primary h-8 placeholder:text-[#616189] p-[8px] pb-2 text-sm font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat  pr-4 -mt-1"
 									style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');">
-									<option value="5">5° </option>
 									<option value="6">6°</option>
 									<option value="7">7°</option>
 									<option value="8">8°</option>
@@ -290,8 +291,9 @@
 												</div>
 											</div>
 											<p class="text-gray-500 dark:text-gray-400 text-sm font-normal text-right">
-												Pregunta <span id="numeroDePregunta"></span> de <span
-													id="totalDePreguntas"></span></p>
+												Pregunta <span class="numeroDePregunta"></span> de
+												<span class="totalDePreguntas"></span>
+											</p>
 										</div>
 
 
@@ -359,16 +361,14 @@
 												<span
 													class="font-semibold text-gray-600 dark:text-gray-400">Acertadas:</span>
 												<span
-													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary"
-													id="preguntasAcertadas">0</span>
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary preguntasAcertadas">0</span>
 											</div>
 
 											<div class="flex justify-between">
 												<span
 													class="font-semibold text-gray-600 dark:text-gray-400">Equivocadas:</span>
 												<span
-													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary"
-													id="preguntasEquivocadas">0</span>
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary preguntasEquivocadas">0</span>
 											</div>
 
 											<div class="flex justify-between">
@@ -592,7 +592,7 @@
 
 						<!-- SOPA DE LETRAS -->
 						<div id="pantallaSopa"
-							class="select-none hidden absolute top-[10vh] left-1/2 -translate-x-1/2  rounded-3xl bg-white dark:bg-gray-800/70  shadow-7xl  mx-auto w-[70vw] h-[70vh] z-[999] flex flex-col justify-start py-6 px-4 border-4 border-blue-300 dark:border-gray-700">
+							class="select-none hidden absolute top-[8vh] left-1/2 -translate-x-1/2  rounded-3xl bg-white dark:bg-gray-800/70  shadow-7xl  mx-auto w-[70vw] h-[70vh] z-[999] flex flex-col justify-start py-6 px-4 border-4 border-blue-300 dark:border-gray-700">
 
 							<div class=" select-none flex flex-wrap justify-between gap-4 p-4 ">
 								<div class="select-none flex flex-col gap-2">
@@ -625,18 +625,42 @@
 									</div>
 								</div>
 							</div>
+							<div id="modal-de-celebracion-sopa" class="hidden">
+								<div
+									class="fixed w-full h-full top-0 left-0 inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-[9999999]">
+									<div
+										class="relative w-full max-w-md animate-modalShow rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+										<img alt="Celebración"
+											class="absolute inset-0 w-full h-full object-cover blur-sm"
+											src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCzZlKOrvBTMH27XyNc7Xt7xJfpuNlvQnO-pJ1rcFJ2g_LJTjBp0LPgWbdLgDIAXynF0mJaWWhR5xOnQUo8cYHmS5TFZF8998G20v1aOxSyMA1p0I_CMND1YkY3-ty-q3rMOW2djFmWpy4W_vqoR4wpdLYYXG7bJ3OLghFCUxZveEPZLzAiFb3vSHQgsva7JxfcvCHQWryCyw9s6LY9Xkljp5YmaBELMRB1y1XmngeSa5KhmxizvGrb0vMEaPjE0b5idK1yGkPGcA" />
+										<div
+											class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30">
+										</div>
+										<div
+											class="relative p-8 flex flex-col items-center justify-center text-center text-white h-[45vh]">
+											<div
+												class="absolute inset-0 border-2 border-primary/50 rounded-2xl pointer-events-none animate-pulse">
+											</div>
+											<div class="flex-grow flex flex-col items-center justify-center">
+												<div
+													class="relative bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 shadow-lg">
+													<p class="text-2xl font-bold text-white drop-shadow-lg">¡Excelente!
+													</p>
+													<p class="text-lg font-medium text-gray-200 mt-1 drop-shadow-md">Has
+														recuperado 2 vidas.</p>
+												</div>
+												<p class="text-gray-300 mt-6 text-sm font-light">Volviendo al quiz en...
+												</p>
+											</div>
+											<div class="text-8xl font-black font-display gold-gradient-text text-glow animate-countdownFlip"
+												id="cuentaRegresiva1">5</div>
+										</div>
+									</div>
+								</div>
 
-							<div id="modal-de-celebracion-sopa" class="hidden z-[999] px-2 py-1 rounded relative mt-4">
-								<strong class="font-bold text-green-600">¡Excelente!
-								</strong>
-								<span class="block font-bold  text-green-600">Has
-									recuperado 2
-									vidas.
-									Volviendo al
-									quiz en...</span>
-								<span id="cuentaRegresiva1"
-									class="text-6xl font-bold mt-4 text-primary dark:text-primary hidden"></span>
+
 							</div>
+
 
 						</div>
 
@@ -693,19 +717,86 @@
 						</div>
 
 						<div id="finQuiz"
-							class="hidden top-[10vh] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[60vh] z-50	">
-							<p class="text-2xl font-bold uppercase text-center text-black">Quiz Terminado</p>
+							class="hidden flex h-screen w-screen top-0 left-0 flex-col items-center justify-center overflow-hidden rounded-xl shadow-2xl glassmorphism p-6">
+
+
+							<!-- Modal -->
+							<div class=" transform">
+								<div class="relative flex flex-col rounded-xl shadow-3xl glassmorphism bg-gradient-to-br from-blue-200 via-sky-200 to-emerald-200 dark:from-indigo-900
+						dark:via-sky-900 dark:to-emerald-600 z-[999999999999999999999]">
+									<div class="flex flex-col items-center justify-center p-6 md:p-8">
+										<div
+											class="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-400/30 mb-4">
+											<span
+												class="material-symbols-outlined text-5xl text-emerald-500">workspace_premium</span>
+										</div>
+										<!-- HeadlineText -->
+										<h1
+											class="text-[#111618] dark:text-white tracking-tight text-2xl md:text-3xl font-bold uppercase text-center pb-1">
+											¡Quiz Terminado!</h1>
+										<!-- BodyText -->
+										<p
+											class="text-gray-700 dark:text-gray-300 text-base font-normal leading-normal pb-4 text-center">
+											¡Excelente trabajo! Has completado el desafío.</p>
+										<!-- ProfileStats -->
+										<div class="flex w-full flex-wrap gap-3 py-3">
+											<div
+												class="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-black/10 dark:border-white/10 p-3 items-center text-center bg-white/30 dark:bg-black/20">
+												<p
+													class="text-[#111618] dark:text-white tracking-light text-2xl font-bold leading-tight">
+													<span class="preguntasAcertadas">0</span>/<span
+														class="totalDePreguntas">0</span>
+												</p>
+												<div class="flex items-center gap-2">
+													<p
+														class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">
+														Respuestas Correctas</p>
+												</div>
+											</div>
+											<div
+												class="flex min-w-[111px] flex-1 basis-[fit-content] flex-col gap-2 rounded-lg border border-black/10 dark:border-white/10 p-3 items-center text-center bg-white/30 dark:bg-black/20">
+												<p id="porcentaje"
+													class="porcentaje text-[#111618] dark:text-white tracking-light text-2xl font-bold leading-tight">
+													850</p>
+												<div class="flex items-center gap-2">
+													<p
+														class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">
+														Puntos</p>
+												</div>
+											</div>
+										</div>
+										<!-- ButtonGroup -->
+										<div class="flex w-full flex-col items-stretch gap-3 pt-4">
+											<button onclick="reiniciarTodo()"
+												class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] transition-transform hover:scale-105 active:scale-100">
+												<span class="truncate">Iniciar Nuevo Quiz</span>
+											</button>
+											<button onclick="cerrarSesion()" id="cerrarSesion"
+												class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary/20 text-primary dark:bg-primary/30 dark:text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors hover:bg-primary/30 dark:hover:bg-primary/40">
+												<span class="truncate">Cerrar Sesion</span>
+											</button>
+											<button
+												class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-transparent text-[#111618] dark:text-white text-base font-bold leading-normal tracking-[0.015em] transition-colors hover:bg-black/5 dark:hover:bg-white/10">
+												<span class="truncate">Volver al menú principal</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
+
+
 				</div>
-
-
+				<button id="btnReiniciar"
+					class="hidden absolute bottom-4 left-4 bg-transparent border-2 border-gray-400 rounded-lg px-4 py-2 text-gray-400 hover:text-gray-600 cursor-pointer"
+					onclick="reiniciarTodo()">Reiniciar Quiz</button>
 			</div>
-		</div>
 
 
 
-		<script src="Js/Scripts.js"></script>
+			<script src="Js/Scripts.js"></script>
 </body>
 
 </html>
