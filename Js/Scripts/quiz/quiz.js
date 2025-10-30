@@ -12,18 +12,22 @@ function siguientePregunta() {
         estado.preguntasGuardadas = filtrarPreguntas(estado.grado, estado.dificultad);
     }
 
+
+
     const q = estado.preguntasGuardadas.shift();
     estado.questionCurrent = q;
     el.materiaLabel.innerText = q.materia;
     el.quizQuestion.innerText = q.pregunta;
     el.optionsQuestion.innerHTML = "";
+
     q.opciones.forEach((opt, idx) => {
+
         if (idx === -1) {
             el.pantallaFin.classList.replace('opacity-0', 'opacity-100');
         }
         // 1. Crear el <label> (contenedor principal de la opción)
         const label = document.createElement("label");
-        label.className = "flex items-center gap-4 rounded-lg border-2 border-solid border-gray-400 dark:border-gray-600 p-2 cursor-pointer hover:border-primary dark:hover:border-primary transition-all duration-300 ease-in-out transform hover:scale-105 has-[:checked]:border-primary has-[:checked]:bg-primary/10 text-sm";
+        label.className = " flex items-center gap-4 rounded-lg border-2 border-solid border-gray-400 dark:border-gray-600 p-2 cursor-pointer hover:border-primary dark:hover:border-primary transition-all duration-300 ease-in  has-[:checked]:border-primary has-[:checked]:bg-primary/10 text-sm";
         // Añadir 'opcion' para que la lógica de verificación (verificarRespuesta) pueda aplicar las clases 'correct'/'wrong'.
         label.classList.add("opcion");
 
@@ -32,11 +36,13 @@ function siguientePregunta() {
         input.type = "radio";
         input.name = "quiz-option";
         input.value = idx; // Usamos el índice como valor para identificación
-        input.className = "h-4 w-4 border-2 border-gray-400 dark:border-gray-500 bg-transparent text-transparent checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-primary text-sm";
+        input.className = "opacity-0 transition-all duration-300 ease-in-out h-4 w-4 border-2 border-gray-400 dark:border-gray-500 bg-transparent text-transparent checked:border-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0 checked:focus:border-primary text-sm";
 
         // 3. Crear el <div> contenedor de texto
         const textContainer = document.createElement("div");
-        textContainer.className = "flex grow flex-col";
+        textContainer.className = "opacity-0 transition-all duration-300 ease-in-out  flex grow flex-col";
+
+
 
         // 4. Crear el <p> con el texto de la opción
         const textP = document.createElement("p");
@@ -54,7 +60,17 @@ function siguientePregunta() {
 
         // 7. Adjuntar la opción completa al contenedor principal
         el.optionsQuestion.appendChild(label);
+        setTimeout(() => {
+            setTimeout(() => {
+                el.areaDePregunta.classList.replace("opacity-0", "opacity-100");
+                el.quizQuestion.classList.replace("opacity-0", "opacity-100")
+            }, 150);
+            ;
+            input.classList.replace("opacity-0", "opacity-100");
+            textContainer.classList.replace("opacity-0", "opacity-100");
+        }, 150);
     });
+
 
 }
 
@@ -66,11 +82,16 @@ function verificarRespuesta(indice, pregunta) {
     const opcionesNodes = Array.from(el.optionsQuestion.children);
     const opcionSeleccionada = opcionesNodes[indice];
 
+
     const classesToClear = [
         "border-success", "bg-success/10", "border-danger", "bg-danger/10",
         "hover:border-primary", "dark:hover:border-primary",
-        "has-[:checked]:border-primary", "has-[:checked]:bg-primary/10"
+        "has-[:checked]:border-primary", "has-[:checked]:bg-primary/10", "opacity-100",
     ];
+
+
+
+
 
     // Limpia estilos anteriores
     opcionesNodes.forEach(n => n.classList.remove(...classesToClear));

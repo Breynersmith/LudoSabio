@@ -225,8 +225,7 @@
 
 			<!-- inicio -->
 
-			<div id="quiz-view"
-				class="opacity-0 hidden h-screen h-[100vh] w-full absolute  top-0 left-0 transition-opacity duration-500">
+			<div id="quiz-view" class="opacity-0 hidden h-screen h-[100vh] w-full absolute  top-0 left-0">
 				<header id="header"
 					class=" hidden relative top-0 left-0 right-0 flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200/50 dark:border-gray-700/50 px-6 md:px-10 py-4 bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm mb-4">
 					<div class="flex items-center gap-3">
@@ -250,7 +249,8 @@
 					<div class="layout-container flex h-full grow flex-col">
 
 						<!-- CONTENEDOR DEL QUIZ -->
-						<main id="quizContainer" class="hidden opacity-0 flex-1 overflow-hidden h-[80vh]">
+						<main id="quizContainer"
+							class="hidden opacity-0 flex-1 overflow-hidden h-[80vh] transition-opacity ">
 
 
 							<div class="flex gap-8 justify-center  h-[70%] bg-transparent">
@@ -284,9 +284,10 @@
 
 
 										<!-- Pregunta -->
-										<div class="pregunta Card" id="preguntaArea">
+										<div class="pregunta opacity-0 transition-all duration-300 ease-in"
+											data-id="Pregunta Card" id="preguntaArea">
 											<div id="pregunta"
-												class="pregunta text-[#111618] dark:text-white text-md md:text-xl font-bold leading-tight tracking-tight text-left pb-4">
+												class="pregunta opacity-0 transition-all duration-300 ease-in text-[#111618] dark:text-white text-md md:text-xl font-bold leading-tight tracking-tight text-left pb-4">
 											</div>
 											<div id="opciones" class="opciones flex flex-col gap-4">
 
@@ -656,8 +657,7 @@
 										class="relative w-full max-w-md animate-modalShow rounded-2xl overflow-hidden shadow-2xl border border-white/10">
 										<img alt="Celebración" class="absolute inset-0 w-full h-full object-cover"
 											src="./assets/fondo-sopa.png" />
-										<div
-											class="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-black/10 to-black/20">
+										<div class="absolute w-full h-full inset-0 ">
 										</div>
 										<div
 											class="relative p-4 flex flex-col items-center justify-center text-center text-white h-[45vh]">

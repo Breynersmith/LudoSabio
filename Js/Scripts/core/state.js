@@ -8,6 +8,7 @@ const btnReiniciar = document.getElementById("btnReiniciar");
 
 // Referencias a elementos del DOM
 const el = {
+    areaDePregunta: document.getElementById("preguntaArea"),
     numeroDePregunta: document.querySelectorAll(".numeroDePregunta"),
     totalPreguntas: document.querySelectorAll(".totalDePreguntas"),
     seletName: document.getElementById("userName"),

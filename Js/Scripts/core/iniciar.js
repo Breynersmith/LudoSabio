@@ -21,16 +21,16 @@ function entrar() {
     spanDificultad.innerText = el.selectDificultad.value;
 
     estado.modalInicio = false;
-    toggleViewWithTransition(el.pantallaInicio, false);
+    toggleViewWithTransition(el.pantallaInicio, false, 150);
 
     setTimeout(() => {
         let number;
 
         const quizView = document.getElementById("quiz-view");
-        toggleViewWithTransition(quizView, true);
+        toggleViewWithTransition(quizView, true, 150);
+        document.getElementById("header").classList.remove("hidden");
 
         // Mostrar header
-        document.getElementById("header").classList.remove("hidden");
 
         // Activar estado del quiz
         estado.quiz = true;
@@ -46,7 +46,7 @@ function entrar() {
         setTextToNodes(el.numeroDePregunta, number);
         sincronizarState();
         iniciarJuego();
-    }, 500);
+    }, 150);
 }
 
 function iniciarJuego() {

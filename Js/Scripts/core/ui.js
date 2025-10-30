@@ -2,7 +2,7 @@ function sincronizarState() {
     setTextToNodes(el.totalPreguntas, totalPreguntasBase);
     document.getElementById('inicialName').innerText = el.seletName.value.charAt(0).toUpperCase();
 
-    // ⭐️ AHORA USAMOS LA FUNCIÓN CON TRANSICIÓN ⭐️
+
     toggleViewWithTransition(el.celebracionSopa, estado.celebracionSopa);
     toggleViewWithTransition(el.pantallaInicio, estado.modalInicio);
     toggleViewWithTransition(el.overlayOperacion, estado.gusanito_modal_pregunta_rapida);
@@ -10,33 +10,33 @@ function sincronizarState() {
     toggleViewWithTransition(el.errorMessage, estado.gusanito_mensaje_de_error);
     toggleViewWithTransition(el.modal_de_celebracion, estado.mensajeDeGanar);
 
-    // Estados de juegos y pantallas (vistas principales)
+
     toggleViewWithTransition(el.pantallaGusanito, estado.juegoGusanito);
     toggleViewWithTransition(el.pantallaSopa, estado.juegoSopa);
     toggleViewWithTransition(el.quizContainer, estado.quiz);
 
 
-    // Pausa: AHORA CON TRANSICIÓN
+
     toggleViewWithTransition(el.eventoPause, estado.isPaused);
 
-    // Pantalla de fin: AHORA CON TRANSICIÓN
+
     !estado.quiz ? el.quizContainer.classList.add("blur-sm") : el.quizContainer.classList.remove("blur-sm");
     toggleViewWithTransition(el.pantallaFin, estado.modalPantallaFin);
 }
 function actualizarContadores() {
-    // Tu juego limita a 16 preguntas, por lo que este es el total base.
+
     let totalPreguntas = totalPreguntasBase;
 
-    // Calcula el porcentaje de progreso (limitado a un máximo de 100%)
+
     const porcentaje = Math.min(100, (estado.progreso / totalPreguntasBase) * 100);
     el.porcentaje.innerText = Math.min(100, (estado.preguntasAcertadas / totalPreguntasBase) * 100);
 
 
 
 
-    // 1. Actualiza los contadores numéricos (texto: 5 de 20, etc.)
+
     document.getElementById("contadorPreguntas").innerText = estado.preguntasContestadas;
-    // 2. Actualiza la barra de progreso visual
+
     if (el.barraProgreso) {
         el.barraProgreso.style.width = `${porcentaje}%`;
     }
@@ -112,36 +112,26 @@ function cerrarSesion() {
     sincronizarState()
 }
 
-// Define la duración de la transición en milisegundos.
-// Debe coincidir con la clase 'duration-XXX' de Tailwind que uses (ej: duration-500)
-const TRANSITION_DURATION = 500;
 
-/**
- * Muestra/Oculta un elemento con una transición de fundido (Fade).
- * @param {HTMLElement} element El elemento del DOM a transicionar.
- * @param {boolean} shouldShow Indica si el elemento debe mostrarse (true) u ocultarse (false).
- */
-function toggleViewWithTransition(element, shouldShow) {
+
+const TRANSITION_DURATION = 300;
+
+
+function toggleViewWithTransition(element, shouldShow, delay) {
     if (shouldShow) {
-        // SECUENCIA DE MOSTRAR (Fade In)
-
-        // 1. Quitar 'hidden' para que el elemento ocupe espacio y sea elegible para la transición
         element.classList.remove("hidden");
-
-        // 2. Usar un pequeño retraso para asegurar que el navegador registre que 'hidden' se ha quitado
         setTimeout(() => {
             element.classList.remove("opacity-0");
-            element.classList.add("opacity-100"); // Asumimos que quieres 100% de opacidad
-        }, 10);
+            element.classList.add("opacity-100");
+        }, delay > 0 ? delay : TRANSITION_DURATION);
 
     } else {
-        // SECUENCIA DE OCULTAR (Fade Out)
 
-        // 1. Iniciar la transición de opacidad a 0
+
         element.classList.remove("opacity-100");
         element.classList.add("opacity-0");
 
-        // 2. Esperar a que la transición termine antes de aplicar 'hidden'
+
         setTimeout(() => {
             element.classList.add("hidden");
         }, TRANSITION_DURATION);
