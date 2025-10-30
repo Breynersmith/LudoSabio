@@ -71,7 +71,7 @@ let estado = {
 
     grado: el.seletGrado.value,
     dificultad: "facil",
-
+    numeroDePregunta: 0,
     preguntasContestadas: 0,
     progreso: 0,
 

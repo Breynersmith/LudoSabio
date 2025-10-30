@@ -213,7 +213,7 @@
 			<!-- inicio -->
 
 			<div id="quiz-view"
-				class="opacity-1 h-screen h-[100vh] w-full absolute  top-0 left-0 transition-opacity duration-500">
+				class="opacity-0 hidden h-screen h-[100vh] w-full absolute  top-0 left-0 transition-opacity duration-500">
 				<header id="header"
 					class=" hidden relative top-0 left-0 right-0 flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200/50 dark:border-gray-700/50 px-6 md:px-10 py-4 bg-white/50 dark:bg-background-dark/50 backdrop-blur-sm mb-4">
 					<div class="flex items-center gap-3">
@@ -373,7 +373,7 @@
 
 						<!--Modal del juego GUSANITO -->
 						<div id="pantallaGusanito"
-							class="hidden w-[90vw] absolute top-[2vh] left-[5vw] h-[80vh] mx-auto flex border-gray-400 rounded-3xl  z-[999] overflow-hidden shadow-2xl bg-white/70">
+							class="hidden opacity-0 w-[90vw] absolute top-[2vh] left-[5vw] h-[80vh] mx-auto flex border-gray-400 rounded-3xl  z-[999] overflow-hidden shadow-2xl bg-white/70 transition-opacity duration-500">
 							<div
 								class="relative flex  w-[100%] flex-col group/design-root overflow-x-hidden  rounded-3xl shadow-2xl p-4">
 								<div class="fondoAnimado absolute inset-0 z-0"></div>
@@ -564,7 +564,7 @@
 
 						<!-- SOPA DE LETRAS -->
 						<div id="pantallaSopa"
-							class="select-none hidden absolute top-[8vh] left-1/2 -translate-x-1/2  rounded-3xl bg-white dark:bg-gray-800/70  shadow-7xl  mx-auto w-[70vw] h-[70vh] z-[999] flex flex-col justify-start py-6 px-4 border-4 border-blue-300 dark:border-gray-700">
+							class="select-none  hidden opacity-0 absolute top-[8vh] left-1/2 -translate-x-1/2  rounded-3xl bg-white dark:bg-gray-800/70  shadow-7xl  mx-auto w-[70vw] h-[70vh] z-[999] flex flex-col justify-start py-6 px-4 border-4 border-blue-300 dark:border-gray-700 transition-opacity duration-500">
 
 							<div class=" select-none flex flex-wrap justify-between gap-4 p-4 ">
 								<div class="select-none flex flex-col gap-2">
@@ -638,7 +638,7 @@
 
 						<!-- FIN SIN VIDAS -->
 						<div id="pantallaFin"
-							class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[60vh] z-50 overflow-hiddenxl">
+							class="hidden opacity-0 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[60vh] z-50 overflow-hiddenxl transition-opacity duration-500">
 
 							<!-- Círculos decorativos de fondo (relativos al modal) -->
 							<div class="absolute inset-0 pointer-events-none rounded-xl overflow-hidden">
@@ -689,7 +689,7 @@
 						</div>
 
 						<div id="finQuiz"
-							class="hidden flex h-screen w-screen top-0 left-0 flex-col items-center justify-center overflow-hidden rounded-xl shadow-2xl glassmorphism p-6">
+							class="fixed hidden opacity-0 flex h-screen w-screen top-0 left-0 flex-col items-center justify-center overflow-hidden  shadow-2xl glassmorphism backdrop-blur-md bg-opacity-20 bg-gradient-to-br from-gray-600/30 via-black/30 to-gray-800/30  z-[999999999999999999999] p-6 transition-opacity duration-500">
 
 
 							<!-- Modal -->
@@ -739,7 +739,7 @@
 										</div>
 										<!-- ButtonGroup -->
 										<div class="flex w-full flex-col items-stretch gap-3 pt-4">
-											<button onclick="reiniciarTodo()"
+											<button onclick="reiniciarTodo()" id="reiniciarTodo"
 												class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] transition-transform hover:scale-105 active:scale-100">
 												<span class="truncate">Iniciar Nuevo Quiz</span>
 											</button>
@@ -782,7 +782,7 @@
 			<script src="js/Scripts/gusanito/controlSnake.js"></script>
 			<script src="js/Scripts/gusanito/snake.js"></script>
 			<script src="js/Scripts/gusanito/modalSnake.js"></script>
-			js/
+
 			<!-- SOPA -->
 			<script src="js/Scripts/sopasdeletras/sopaHelper.js"></script>
 			<script src="js/Scripts/sopadeletras/sopa.js"></script>

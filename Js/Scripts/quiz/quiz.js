@@ -1,7 +1,17 @@
 function siguientePregunta() {
+    if (estado.preguntasContestadas === 2) {
+        setTimeout(() => {
+            el.quizContainer.classList.add("blur-sm");
+            estado.quiz = false;
+            toggleViewWithTransition(el.finQuiz, true);
+            sincronizarState();
+        }, 500);
+        return
+    }
     if (estado.preguntasGuardadas.length === 0) {
         estado.preguntasGuardadas = filtrarPreguntas(estado.grado, estado.dificultad);
     }
+
     const q = estado.preguntasGuardadas.shift();
     estado.questionCurrent = q;
     el.materiaLabel.innerText = q.materia;
@@ -75,7 +85,8 @@ function verificarRespuesta(indice, pregunta) {
         setTextToNodes(el.preguntasAcertadas, estado.preguntasAcertadas);
         sincronizarState();
         actualizarContadores();
-        setTimeout(siguientePregunta, 600);
+        setTimeout(siguientePregunta, 800);
+
     } else {
         opcionSeleccionada.classList.add("border-danger", "bg-danger/10");
         opcionesNodes[pregunta.correcta].classList.add("border-success", "bg-success/10");
@@ -87,15 +98,15 @@ function verificarRespuesta(indice, pregunta) {
         actualizarVidasUI();
         actualizarContadores();
 
-        setTimeout(() => {
-            if (estado.vidas <= 0) {
-                el.quizContainer.classList.add("blur-sm");
-                el.pantallaFin.classList.replace('hidden', 'block');
-            } else {
-                siguientePregunta();
-            }
-        }, 800);
+        if (estado.vidas <= 0) {
+            temporizador(el.quizContainer, el.pantallaFin, true, 800);
+        } else {
+            setTimeout(siguientePregunta, 800);
+        }
+
     }
+
+
 
     // Marca progreso total
     estado.preguntasContestadas++;
@@ -111,13 +122,28 @@ function verificarRespuesta(indice, pregunta) {
 
 
 function saltarPregunta() {
+    // ⭐ NO verificar vidas al inicio, solo restar y verificar después
+
     estado.preguntasSaltadas++;
-    el.preguntasSaltadas.innerText = estado.preguntasSaltadas;
-    estado.vidas--;
-    siguientePregunta();
-    actualizarVidasUI();
     estado.preguntasContestadas++;
+    estado.vidas--;
+
+    // Actualizar UI inmediatamente
+    setTextToNodes(el.numeroDePregunta, estado.preguntasContestadas + 1);
+    el.preguntasSaltadas.innerText = estado.preguntasSaltadas;
     actualizarContadores();
-    (estado.vidas <= 0) ? estado.modalPantallaFin = true : siguientePregunta();
+    actualizarVidasUI();
+
+    // ⭐ Sincronizar ANTES de mostrar modal
     sincronizarState();
+
+    // ⭐ Verificar vidas DESPUÉS de restar
+    if (estado.vidas > 0) {
+        siguientePregunta();
+    } else {
+        // Sin vidas: mostrar modal con delay
+        temporizador(el.quizContainer, el.pantallaFin, true, 800);
+    }
 }
+
+

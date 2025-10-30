@@ -35,8 +35,8 @@ function iniciarSopa() {
     wordGrid = document.getElementById("wordGrid");
     wordList = document.getElementById("wordList");
 
-    estado.quiz = true;
-    estado.modalPantallaFin = false;
+
+    toggleViewWithTransition(el.pantallaSopa, true);
     estado.juegoSopa = true;
     estado.juegoGusanito = false;
 
@@ -57,13 +57,11 @@ function iniciarSopa() {
     // 4. Configurar eventos de mouse para la selección
     setupGridEvents();
 
-    // 5. Mostrar la pantalla
-    setTimeout(() => {
+    el.quizContainer.classList.add("blur-sm");
 
-        el.quizContainer.classList.add("blur-sm");
-        el.pantallaFin.classList.replace("block", "hidden");
-        el.pantallaSopa.classList.replace("hidden", "flex");
-    }, 200);
+    toggleViewWithTransition(el.pantallaSopa, true);
+
+
 }
 
 // Función para renderizar la cuadrícula en el HTML
@@ -229,7 +227,9 @@ function checkSelectedWord() {
         if (SopaConfig.foundWords.size === SopaConfig.words.length) {
             // 1. Configurar estados
             estado.celebracionSopa = true;
-            estado.vidas += 2; // ✅ Suma 2 vidas
+            estado.vidas += 2;
+
+
 
             // 2. Actualizar UI inmediatamente
             actualizarVidasUI();
@@ -267,10 +267,14 @@ function checkSelectedWord() {
                         btnResolver.classList.remove("hidden");
                         btnResolver.disabled = false;
 
-                        // 8. Volver al quiz
-                        sincronizarState();
-                        siguientePregunta();
-                        volverAlQuiz();
+                        temporizador(el.quizContainer, el.pantallaFin, false, 800);
+
+                        // NUEVO: Retrasar la sincronización para que el temporizador (800ms) termine primero.
+                        setTimeout(() => {
+                            sincronizarState();
+                            siguientePregunta();
+                            volverAlQuiz();
+                        }, 800);
                     }
                 }, 1000);
             }, 800);

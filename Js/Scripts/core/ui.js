@@ -1,38 +1,28 @@
 function sincronizarState() {
     setTextToNodes(el.totalPreguntas, totalPreguntasBase);
-
-
     document.getElementById('inicialName').innerText = el.seletName.value.charAt(0).toUpperCase();
-    // Estados de modales y mensajes
-    estado.celebracionSopa === false ? el.celebracionSopa.classList.add("hidden") : el.celebracionSopa.classList.remove("hidden");
-    estado.modalInicio === false ? el.pantallaInicio.classList.add("hidden") : el.pantallaInicio.classList.remove("hidden");
-    estado.gusanito_modal_pregunta_rapida === false ? el.overlayOperacion.classList.add("hidden") : el.overlayOperacion.classList.remove("hidden");
-    estado.gusanito_mensaje_corecto === false ? el.successMessage.classList.add("hidden") : el.successMessage.classList.remove("hidden");
-    estado.gusanito_mensaje_de_error === false ? el.errorMessage.classList.add("hidden") : el.errorMessage.classList.remove("hidden");
-    estado.mensajeDeGanar === false ? el.modal_de_celebracion.classList.add("hidden") : el.modal_de_celebracion.classList.remove("hidden");
 
-    // Estados de juegos y pantallas
-    if (estado.juegoGusanito === false) {
-        el.pantallaGusanito.classList.add("hidden");
-        el.pantallaGusanito.classList.replace("opacity-0", "opacity-1");
-    } else {
-        el.pantallaGusanito.classList.remove("hidden");
-    }
-    estado.isPaused ? el.eventoPause.classList.remove("hidden") : el.eventoPause.classList.add("hidden");
-    estado.juegoSopa === false ? el.pantallaSopa.classList.add("hidden") : el.pantallaSopa.classList.remove("hidden");
-    estado.quiz === false ? el.quizContainer.classList.add("hidden") : el.quizContainer.classList.remove("hidden");
+    // ⭐️ AHORA USAMOS LA FUNCIÓN CON TRANSICIÓN ⭐️
+    toggleViewWithTransition(el.celebracionSopa, estado.celebracionSopa);
+    toggleViewWithTransition(el.pantallaInicio, estado.modalInicio);
+    toggleViewWithTransition(el.overlayOperacion, estado.gusanito_modal_pregunta_rapida);
+    toggleViewWithTransition(el.successMessage, estado.gusanito_mensaje_corecto);
+    toggleViewWithTransition(el.errorMessage, estado.gusanito_mensaje_de_error);
+    toggleViewWithTransition(el.modal_de_celebracion, estado.mensajeDeGanar);
 
-    if (!estado.modalPantallaFin) {
-        el.pantallaFin.classList.add("hidden")
-        el.quizContainer.classList.remove("blur-sm")
-    } else {
-        el.pantallaFin.classList.remove("hidden")
-        el.quizContainer.classList.add("blur-sm")
-    }
+    // Estados de juegos y pantallas (vistas principales)
+    toggleViewWithTransition(el.pantallaGusanito, estado.juegoGusanito);
+    toggleViewWithTransition(el.pantallaSopa, estado.juegoSopa);
+    toggleViewWithTransition(el.quizContainer, estado.quiz);
 
 
+    // Pausa: AHORA CON TRANSICIÓN
+    toggleViewWithTransition(el.eventoPause, estado.isPaused);
+
+    // Pantalla de fin: AHORA CON TRANSICIÓN
+    !estado.quiz ? el.quizContainer.classList.add("blur-sm") : el.quizContainer.classList.remove("blur-sm");
+    toggleViewWithTransition(el.pantallaFin, estado.modalPantallaFin);
 }
-
 function actualizarContadores() {
     // Tu juego limita a 16 preguntas, por lo que este es el total base.
     let totalPreguntas = totalPreguntasBase;
@@ -41,10 +31,7 @@ function actualizarContadores() {
     const porcentaje = Math.min(100, (estado.progreso / totalPreguntasBase) * 100);
     el.porcentaje.innerText = Math.min(100, (estado.preguntasAcertadas / totalPreguntasBase) * 100);
 
-    if (estado.preguntasContestadas === totalPreguntasBase) {
-        el.quizContainer.classList.add("blur-sm");
-        el.finQuiz.classList.replace('hidden', 'fixed');
-    }
+
 
 
     // 1. Actualiza los contadores numéricos (texto: 5 de 20, etc.)
@@ -75,6 +62,7 @@ function volverAlQuiz() {
     } else {
         estado.modalPantallaFin = false;
         estado.quiz = true;
+        toggleViewWithTransition(el.quizContainer, true);
         estado.mensajeDeGanar = false;
         estado.gusanito_modal_pregunta_rapida = false;
         estado.gusanito_mensaje_corecto = false;
@@ -82,9 +70,6 @@ function volverAlQuiz() {
         estado.juegoGusanito = false;
         estado.juegoSopa = false;
 
-        el.quizContainer.classList.replace("opacity-0", "opacity-1");
-        sincronizarState();
-        siguientePregunta();
     }
 }
 
@@ -99,17 +84,66 @@ function reiniciarTodo() {
     estado.preguntasErradas = 0;
     estado.preguntasSaltadas = 0;
     gusanito.streak = 0;
-    sincronizarState();
+    estado.preguntasGuardadas.length = 0;
+
 
     actualizarVidasUI();
     actualizarContadores();
+
+    setTextToNodes(el.numeroDePregunta, 1)
+    setTextToNodes(el.preguntasAcertadas, 0)
+    setTextToNodes(el.preguntasErradas, 0)
+    setTextToNodes(el.preguntasSaltadas, 0)
+
+    estado.quiz = true;
+
+    sincronizarState();
+
+    toggleViewWithTransition(el.finQuiz, false)
+    toggleViewWithTransition(el.quizContainer, true);
 }
 function cerrarSesion() {
     reiniciarTodo();
     estado.modalInicio = true;
     estado.quiz = false;
-    el.finQuiz.classList.add("hidden");
+    toggleViewWithTransition(el.finQuiz, false);
     document.getElementsByTagName("header")[0].classList.add("hidden");
     document.getElementById('btnReiniciar').classList.add("hidden");
     sincronizarState()
+}
+
+// Define la duración de la transición en milisegundos.
+// Debe coincidir con la clase 'duration-XXX' de Tailwind que uses (ej: duration-500)
+const TRANSITION_DURATION = 500;
+
+/**
+ * Muestra/Oculta un elemento con una transición de fundido (Fade).
+ * @param {HTMLElement} element El elemento del DOM a transicionar.
+ * @param {boolean} shouldShow Indica si el elemento debe mostrarse (true) u ocultarse (false).
+ */
+function toggleViewWithTransition(element, shouldShow) {
+    if (shouldShow) {
+        // SECUENCIA DE MOSTRAR (Fade In)
+
+        // 1. Quitar 'hidden' para que el elemento ocupe espacio y sea elegible para la transición
+        element.classList.remove("hidden");
+
+        // 2. Usar un pequeño retraso para asegurar que el navegador registre que 'hidden' se ha quitado
+        setTimeout(() => {
+            element.classList.remove("opacity-0");
+            element.classList.add("opacity-100"); // Asumimos que quieres 100% de opacidad
+        }, 10);
+
+    } else {
+        // SECUENCIA DE OCULTAR (Fade Out)
+
+        // 1. Iniciar la transición de opacidad a 0
+        element.classList.remove("opacity-100");
+        element.classList.add("opacity-0");
+
+        // 2. Esperar a que la transición termine antes de aplicar 'hidden'
+        setTimeout(() => {
+            element.classList.add("hidden");
+        }, TRANSITION_DURATION);
+    }
 }
