@@ -1,21 +1,19 @@
 function entrar() {
     btnReiniciar.classList.remove("hidden");
-    if (clave.value === "") {
-        alert("Ingrese una clave");
+    if (clave.value === "" || el.seletName.value === "") {
+        alert("Todos los campos son obligatorios");
         return;
     }
     el.dataName.innerText = el.seletName.value || "Invitado";
     spanGrado.innerText = el.seletGrado.value;
     spanDificultad.innerText = el.selectDificultad.value;
 
-    // ⭐ PRIMERO: Ocultar el login con transición
     estado.modalInicio = false;
     toggleViewWithTransition(el.pantallaInicio, false);
 
     setTimeout(() => {
         let number;
 
-        // ⭐ MOSTRAR quiz-view (el contenedor principal) con transición
         const quizView = document.getElementById("quiz-view");
         toggleViewWithTransition(quizView, true);
 
@@ -36,7 +34,7 @@ function entrar() {
         setTextToNodes(el.numeroDePregunta, number);
         sincronizarState();
         iniciarJuego();
-    }, 500); // Este timeout permite que la transición del login termine
+    }, 500);
 }
 
 function iniciarJuego() {

@@ -141,7 +141,8 @@
 					class="layout-content-container flex flex-col w-[50%] h-[100%] justify-center text-center items-center p-8 bg-transparent backdrop-blur-lg rounded-2xl shadow-xl   shadow-gray-500/80 border-4 border-blue/70">
 					<div class="flex flex-col items-center gap-2 p-4 text-center">
 						<img src="logo.png" class="w-[220px] h-170px] -mt-8" alt="Logo">
-						<p class="text-[#616189] dark:text-gray-300 text-md font-normal leading-normal">Inicia sesión
+						<p class="text-[#616189] dark:text-gray-300 text-md font-normal leading-normal">
+							Inicia sesión
 							para
 							comenzar a aprender</p>
 					</div>
@@ -152,7 +153,7 @@
 								for="username">Usuario</label>
 							<input
 								class="form-input flex w-[100%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/40 dark:bg-gray-700/50 dark:text-white h-8 placeholder:text-[#616189] p-[10px] text-base font-normal leading-normal shadow-sm hover:shadow-md text-center"
-								id="userName" name="userName" placeholder="Nombre de Estudiante" type="text" />
+								id="userName" name="userName" placeholder="Nombre de Estudiante" type="text" required />
 						</div>
 
 						<div class="flex gap-4 px-4 py-3 w-[90%] z-[100000]">
@@ -161,7 +162,8 @@
 									Grado:</p>
 								<select id="selectGrado"
 									class="form-select flex w-[30%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-400 bg-white/40 dark:bg-gray-700/50 dark:text-white focus:border-primary h-8 placeholder:text-[#616189] p-[8px] pb-2 text-sm font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat  pr-4 -mt-1"
-									style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');">
+									style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');"
+									required>
 									<option value="6">6°</option>
 									<option value="7">7°</option>
 									<option value="8">8°</option>
@@ -176,7 +178,8 @@
 									dificultad</p>
 								<select id="selectDificultad"
 									class="form-select flex w-[50%] flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-400 bg-white/40 dark:bg-gray-700/50 dark:text-white focus:border-primary h-8 placeholder:text-[#616189] p-[8px] text-sm font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat  pr-8 pb-2 -mt-1"
-									style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');">
+									style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');"
+									required>
 									<option value="facil">Fácil</option>
 									<option value="media">Media</option>
 									<option value="dificil">Difícil</option>
@@ -190,22 +193,25 @@
 								for="clave">Clave</label>
 							<input
 								class="form-input flex w-[100%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/40 dark:bg-gray-700/50 dark:text-white h-6 placeholder:text-[#616189] p-[10px] text-base font-normal leading-normal shadow-sm hover:shadow-md text-center"
-								id="clave" name="clave" placeholder="Inserte su contraseña" type="text" required />
+								id="clave" name="clave" placeholder="Inserte su contraseña" type="password" required />
+						</div>
+						<div class="flex flex-col gap-4 px-4 py-3 justify-center">
+							<button onclick="entrar()"
+								class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-12 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-lg font-bold leading-normal tracking-wide shadow-lg btn-glow w-full">
+								<span>Entrar</span>
+							</button>
 						</div>
 
 					</div>
-					<div class="flex flex-col gap-4 px-4 py-3 justify-center">
-						<button onclick="entrar()"
-							class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-12 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-lg font-bold leading-normal tracking-wide shadow-lg btn-glow w-full">
-							<span>Entrar</span>
-						</button>
-					</div>
+
 					<div class="text-center mt-4">
-						<a class="text-sm text-primary hover:underline dark:text-blue-400" href="#">¿Olvidaste tu
+						<a class="text-sm text-primary hover:underline dark:text-blue-400 cursor-default "
+							href="#">¿Olvidaste tu
 							clave?</a>
-						<p class="text-sm text-[#424242] dark:text-gray-300 mt-2">¿No tienes una cuenta? <a
-								class="font-semibold text-primary hover:underline dark:text-blue-400"
-								href="#">Regístrate</a></p>
+						<p class="text-sm text-[#424242] dark:text-gray-300 mt-2 cursor-default ">¿No tienes una cuenta?
+							<a class="font-semibold text-primary hover:underline dark:text-blue-400"
+								href="#">Regístrate</a>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -340,7 +346,8 @@
 												<span
 													class="font-semibold text-gray-600 dark:text-gray-400">Equivocadas:</span>
 												<span
-													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary preguntasEquivocadas">0</span>
+													class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary "
+													id="preguntasEquivocadas">0</span>
 											</div>
 
 											<div class="flex justify-between">
@@ -464,8 +471,9 @@
 																		vidas.
 																		Volviendo al
 																		quiz en...</span>
-																	<span id="cuentaRegresiva"
-																		class="text-6xl font-bold mt-4 text-primary dark:text-primary hidden"></span>
+																	<span
+																		class="text-5xl font-bold mt-4 text-primary dark:text-primary hidden"
+																		id="cuentaRegresiva-gusanito"></span>
 																</div>
 
 
@@ -588,8 +596,9 @@
 												<p class="text-gray-300 mt-6 text-sm font-light">Volviendo al quiz en...
 												</p>
 											</div>
-											<div class="text-8xl font-black font-display gold-gradient-text text-glow animate-countdownFlip"
-												id="cuentaRegresiva1">5</div>
+											<div
+												class="cuientaRegresiva text-8xl font-black font-display gold-gradient-text text-glow animate-countdownFlip">
+												5</div>
 										</div>
 									</div>
 								</div>
@@ -635,23 +644,22 @@
 							</div>
 							<div id="modal-de-celebracion-sopa" class="hidden">
 								<div
-									class="fixed w-full h-full top-0 left-0 inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-[9999999]">
+									class="fixed w-full h-full top-0 left-0 inset-0 glassmorphism  flex items-center justify-center p-4 z-[9999999]">
 									<div
 										class="relative w-full max-w-md animate-modalShow rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-										<img alt="Celebración"
-											class="absolute inset-0 w-full h-full object-cover blur-sm"
+										<img alt="Celebración" class="absolute inset-0 w-full h-full object-cover"
 											src="./assets/fondo-sopa.png" />
 										<div
-											class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30">
+											class="absolute w-full h-full inset-0 bg-gradient-to-t from-black/30 via-black/10 to-black/20">
 										</div>
 										<div
-											class="relative p-8 flex flex-col items-center justify-center text-center text-white h-[45vh]">
+											class="relative p-4 flex flex-col items-center justify-center text-center text-white h-[45vh]">
 											<div
 												class="absolute inset-0 border-2 border-primary/50 rounded-2xl pointer-events-none animate-pulse">
 											</div>
 											<div class="flex-grow flex flex-col items-center justify-center">
 												<div
-													class="relative bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 shadow-lg">
+													class="relative glassmorphism backdrop-blur-lg rounded-xl p-6 border border-white/60 shadow-lg">
 													<p class="text-2xl font-bold text-white drop-shadow-lg">¡Excelente!
 													</p>
 													<p class="text-lg font-medium text-gray-200 mt-1 drop-shadow-md">Has
@@ -660,8 +668,10 @@
 												<p class="text-gray-300 mt-6 text-sm font-light">Volviendo al quiz en...
 												</p>
 											</div>
-											<div class="text-8xl font-black font-display gold-gradient-text text-glow animate-countdownFlip"
-												id="cuentaRegresiva1">5</div>
+											<span
+												class="text-5xl font-black font-display gold-gradient-text text-glow animate-countdownFlip"
+												id="cuentaRegresiva-sopa">
+											</span>
 										</div>
 									</div>
 								</div>
@@ -725,8 +735,7 @@
 						</div>
 
 						<div id="finQuiz"
-							class="fixed hidden opacity-0 flex h-screen w-screen top-0 left-0 flex-col items-center justify-center overflow-hidden  shadow-2xl glassmorphism backdrop-blur-md bg-opacity-20 bg-gradient-to-br from-gray-600/30 via-black/30 to-gray-800/30  z-[999999999999999999999] p-6 transition-opacity duration-500">
-
+							class="fixed hidden opacity-0 flex h-screen w-screen top-0 left-0 flex-col items-center justify-center overflow-hidden  shadow-2xl glassmorphism backdrop-blur-md bg-opacity-20 bg-gradient-to-br from-gray-300/30 via-black/30 to-gray-400/30  z-[999999999999999999999] p-6 transition-opacity duration-500">
 
 							<!-- Modal -->
 							<div class=" transform">
@@ -820,7 +829,7 @@
 			<script src="js/Scripts/gusanito/modalSnake.js"></script>
 
 			<!-- SOPA -->
-			<script src="js/Scripts/sopasdeletras/sopaHelper.js"></script>
+			<script src="js/Scripts/sopadeletras/sopaHelper.js"></script>
 			<script src="js/Scripts/sopadeletras/sopa.js"></script>
 
 

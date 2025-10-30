@@ -39,13 +39,14 @@ const el = {
     modal_de_celebracion: document.getElementById("modal-de-celebracion"),
     celebracionSopa: document.getElementById("modal-de-celebracion-sopa"),
 
-    cuentaRegresiva: document.getElementById("cuentaRegresiva"),
-    cuentaRegresiva1: document.getElementById("cuentaRegresiva1"),
+    cuentaRegresiva: document.getElementById("cuentaRegresiva-gusanito"),
+    cuentaRegresivaSopa: document.getElementById("cuentaRegresiva-sopa"),
+
 
     racha: document.getElementById("racha"),
     preguntasContestadas: document.getElementById("preguntasContestadas"),
     preguntasAcertadas: document.querySelectorAll(".preguntasAcertadas"),
-    preguntasErradas: document.querySelectorAll(".preguntasEquivocadas"),
+    preguntasErradas: document.getElementById("preguntasEquivocadas"),
     vidasGanadas: document.getElementById("vidasDelJuego"),
     preguntasSaltadas: document.getElementById("preguntasSaltadas"),
     porcentaje: document.getElementById("porcentaje"),
@@ -53,7 +54,6 @@ const el = {
     eventoPause: document.getElementById("pauseGusanito"),
     finQuiz: document.getElementById("finQuiz")
 };
-
 
 // Estado General manejado por todos los módulos
 
@@ -88,3 +88,5 @@ let estado = {
     mensajeDeGanar: false,
     celebracionSopa: false
 };
+
+

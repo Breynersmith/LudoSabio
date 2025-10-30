@@ -94,6 +94,8 @@ function verificarRespuesta(indice, pregunta) {
         estado.vidas--;
         estado.preguntasErradas++;
 
+        el.preguntasErradas.innerText = estado.preguntasErradas;
+
         sincronizarState();
         actualizarVidasUI();
         actualizarContadores();

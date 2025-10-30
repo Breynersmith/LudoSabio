@@ -229,30 +229,23 @@ function checkSelectedWord() {
             estado.celebracionSopa = true;
             estado.vidas += 2;
 
-
-
             // 2. Actualizar UI inmediatamente
             actualizarVidasUI();
             sincronizarState(); // ⚠️ Esto debería mostrar el modal
 
             // 3. Esperar a que el modal esté visible
             setTimeout(() => {
-                // 4. Mostrar cuenta regresiva
-                el.cuentaRegresiva1.classList.remove("hidden");
-
-
                 let segundos = 3;
-                el.cuentaRegresiva1.innerText = segundos;
+                el.cuentaRegresivaSopa.innerText = segundos;
+
 
                 let tempSegundos = setInterval(() => {
                     segundos--;
-                    el.cuentaRegresiva1.innerText = segundos;
-
+                    el.cuentaRegresivaSopa.innerText = segundos;
                     if (segundos === 0) {
                         clearInterval(tempSegundos);
 
-                        // 5. Limpiar estados
-                        el.cuentaRegresiva1.classList.add("hidden");
+
                         estado.celebracionSopa = false;
                         estado.juegoSopa = false;
                         estado.modalPantallaFin = false;
