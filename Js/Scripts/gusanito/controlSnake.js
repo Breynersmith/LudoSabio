@@ -1,10 +1,11 @@
 function iniciarGusanito() {
-    el.infoUser.classList.add("hidden");
     estado.quiz = true;
     estado.modalPantallaFin = false;
     estado.juegoSopa = false;
     estado.juegoGusanito = true;
-    el.pantallaGusanito.classList.replace("opacity-0", "opacity-1")
+    setTimeout(() => {
+        el.pantallaGusanito.classList.replace("opacity-0", "opacity-100")
+    }, 300);
     gusanito.canvas = document.getElementById("gusanitoCanvas");
     gusanito.ctx = gusanito.canvas.getContext("2d");
     gusanito.box = 18;

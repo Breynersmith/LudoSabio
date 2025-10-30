@@ -470,19 +470,6 @@
 																	<p class="text-red-500 text-sm">Intenta de nuevo</p>
 																</div>
 
-																<div id="modal-de-celebracion"
-																	class="hidden z-[999] px-2 py-1 rounded relative mt-4">
-																	<strong class="font-bold text-green-600">¡Excelente!
-																	</strong>
-																	<span class="block font-bold  text-green-600">Has
-																		recuperado 2
-																		vidas.
-																		Volviendo al
-																		quiz en...</span>
-																	<span
-																		class="text-5xl font-bold mt-4 text-primary dark:text-primary hidden"
-																		id="cuentaRegresiva-gusanito"></span>
-																</div>
 
 
 																<div
@@ -579,34 +566,39 @@
 
 							<div id="modal-de-celebracion-gusanito" class="hidden">
 								<div
-									class="fixed w-full h-full top-0 left-0 inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-[9999999]">
+									class="fixed w-full h-full top-0 left-0 inset-0 glassmorphism  flex items-center justify-center p-4 z-[9999999]">
 									<div
 										class="relative w-full max-w-md animate-modalShow rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-										<img alt="Celebración"
-											class="absolute inset-0 w-full h-full object-cover blur-sm"
+										<img alt="Celebración" class="absolute inset-0 w-full h-full object-cover"
 											src="./assets/image.png" />
-										<div
-											class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30">
+										<div class="absolute w-full h-full inset-0 ">
 										</div>
 										<div
-											class="relative p-8 flex flex-col items-center justify-center text-center text-white h-[45vh]">
+											class="relative p-4 flex flex-col items-center justify-center text-center text-white h-[45vh]">
 											<div
 												class="absolute inset-0 border-2 border-primary/50 rounded-2xl pointer-events-none animate-pulse">
 											</div>
 											<div class="flex-grow flex flex-col items-center justify-center">
 												<div
-													class="relative bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 shadow-lg">
-													<p class="text-2xl font-bold text-white drop-shadow-lg">¡Excelente!
+													class="relative glassmorphism backdrop-blur-lg rounded-xl p-6 border border-white/60 shadow-lg">
+													<p
+														class="text-2xl font-bold text-white shadow-2xl shadow-green-500 drop-shadow-lg">
+														¡Excelente!
 													</p>
-													<p class="text-lg font-medium text-gray-200 mt-1 drop-shadow-md">Has
+													<p
+														class="text-lg font-medium text-gray-200  shadow-2xl shadow-green-500 mt-1 drop-shadow-md">
+														Has
 														recuperado 2 vidas.</p>
 												</div>
-												<p class="text-gray-300 mt-6 text-sm font-light">Volviendo al quiz en...
+												<p
+													class="text-gray-300 mt-6 text-sm font-light shadow-2xl shadow-green-500">
+													Volviendo al quiz en...
 												</p>
 											</div>
-											<div
-												class="cuientaRegresiva text-8xl font-black font-display gold-gradient-text text-glow animate-countdownFlip">
-												5</div>
+											<span
+												class="text-5xl font-black font-display gold-gradient-text text-glow animate-countdownFlip"
+												id="cuentaRegresiva-sopa">
+											</span>
 										</div>
 									</div>
 								</div>
@@ -667,12 +659,18 @@
 											<div class="flex-grow flex flex-col items-center justify-center">
 												<div
 													class="relative glassmorphism backdrop-blur-lg rounded-xl p-6 border border-white/60 shadow-lg">
-													<p class="text-2xl font-bold text-white drop-shadow-lg">¡Excelente!
+													<p
+														class="text-2xl font-bold text-white shadow-2xl shadow-green-300 drop-shadow-lg">
+														¡Excelente!
 													</p>
-													<p class="text-lg font-medium text-gray-200 mt-1 drop-shadow-md">Has
+													<p
+														class="text-lg font-medium text-gray-200 shadow-2xl shadow-green-300 mt-1 drop-shadow-md">
+														Has
 														recuperado 2 vidas.</p>
 												</div>
-												<p class="text-gray-300 mt-6 text-sm font-light">Volviendo al quiz en...
+												<p
+													class="text-gray-300 mt-6 text-sm font-light shadow-2xl shadow-green-300">
+													Volviendo al quiz en...
 												</p>
 											</div>
 											<span

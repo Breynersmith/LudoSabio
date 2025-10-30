@@ -37,7 +37,7 @@ const el = {
     errorMessage: document.getElementById("modalLoseVidas"),
     overlayOperacion: document.getElementById("overlayOperacion"),
 
-    modal_de_celebracion: document.getElementById("modal-de-celebracion"),
+    modal_de_celebracion: document.getElementById("modal-de-celebracion-gusanito"),
     celebracionSopa: document.getElementById("modal-de-celebracion-sopa"),
 
     cuentaRegresiva: document.getElementById("cuentaRegresiva-gusanito"),

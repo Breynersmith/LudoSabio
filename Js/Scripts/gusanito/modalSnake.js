@@ -47,13 +47,14 @@ function modalEnviar() {
         estado.juegoGusanito = true;
         estado.gusanito_mensaje_corecto = true;
         estado.gusanito_mensaje_de_error = false;
+        setTimeout(() => {
+            estado.gusanito_mensaje_de_error = false;
+            sincronizarState();
+        }, 2000);
 
         sincronizarState();
 
-        setTimeout(() => {
-            estado.gusanito_mensaje_corecto = false;
-            sincronizarState();
-        }, 2000);
+
 
 
         if (gusanito.aciertos % 3 === 0) {
@@ -68,10 +69,15 @@ function modalEnviar() {
     } else {
         gusanito.streak = 0;
         el.racha.innerText = gusanito.streak;
-        estado.gusanito_mensaje_de_error = false;
+        estado.gusanito_mensaje_de_error = true;
         estado.gusanito_mensaje_corecto = false;
         sincronizarState();
+        setTimeout(() => {
+            estado.gusanito_mensaje_corecto = false;
+            sincronizarState();
+        }, 2000);
     }
+
 
     for (let vidas = 0; vidas < gusanito.streak; vidas++) {
         el.vidasGanadas.innerHTML += `<span class="material-symbols-outlined text-red-500">favorite</span>`;
