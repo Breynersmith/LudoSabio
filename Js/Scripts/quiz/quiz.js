@@ -1,5 +1,5 @@
 function siguientePregunta() {
-    if (estado.preguntasContestadas === 2) {
+    if (estado.preguntasContestadas === totalPreguntasBase) {
         setTimeout(() => {
             el.quizContainer.classList.add("blur-sm");
             estado.quiz = false;

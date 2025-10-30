@@ -125,8 +125,9 @@ function loopGusanito() {
     if (head.x === gusanito.food.x && head.y === gusanito.food.y) {
         estado.gusanito_modal_pregunta_rapida = true;
         estado.gusanito_modal_pregunta_rapida == true ? gusanito.awaitingAnswer = true : gusanito.awaitingAnswer = false;
+        sincronizarState();
         generarOperacionModalSegunNivel();
-        el.overlayOperacion.classList.remove("hidden");
+
     } else {
         gusanito.snake.pop();
     }
