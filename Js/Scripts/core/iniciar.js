@@ -5,10 +5,14 @@ function entrar() {
     if (campoClave.trim() === "" || campoNombre.trim() === "") {
         const camposVacios = document.getElementById("camposVacios");
         camposVacios.classList.remove("hidden");
+        el.seletName.classList.replace("border-transparent", "border-red-500");
+        clave.classList.replace("border-transparent", "border-red-500");
 
         setTimeout(() => {
             camposVacios.classList.add("hidden");
-        }, 3000);
+            el.seletName.classList.replace("border-red-500", "border-transparent");
+            clave.classList.replace("border-red-500", "border-transparent");
+        }, 2000);
         return;
     }
 
