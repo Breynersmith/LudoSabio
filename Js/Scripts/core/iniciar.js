@@ -1,9 +1,17 @@
 function entrar() {
+    let campoClave = clave.value;
+    let campoNombre = el.seletName.value;
     btnReiniciar.classList.remove("hidden");
-    if (clave.value === "" || el.seletName.value === "") {
-        alert("Todos los campos son obligatorios");
+    if (campoClave.trim() === "" || campoNombre.trim() === "") {
+        const camposVacios = document.getElementById("camposVacios");
+        camposVacios.classList.remove("hidden");
+
+        setTimeout(() => {
+            camposVacios.classList.add("hidden");
+        }, 3000);
         return;
     }
+
     el.dataName.innerText = el.seletName.value || "Invitado";
     spanGrado.innerText = el.seletGrado.value;
     spanDificultad.innerText = el.selectDificultad.value;

@@ -138,30 +138,30 @@
 			<div id="login-view" class="layout-container relative z-[9999999] flex  grow flex-col items-center justify-center opacity-100
             transition-opacity duration-500 w-screen h-[90vh] m-0">
 				<div
-					class="layout-content-container flex flex-col w-[50%] h-[100%] justify-center text-center items-center p-8 bg-transparent backdrop-blur-lg rounded-2xl shadow-xl   shadow-gray-500/80 border-4 border-blue/70">
-					<div class="flex flex-col items-center gap-2 p-4 text-center">
-						<img src="logo.png" class="w-[220px] h-170px] -mt-8" alt="Logo">
+					class="layout-content-container flex flex-col w-[50%] h-[90%] justify-center text-center items-center bg-transparent backdrop-blur-lg rounded-2xl shadow-xl   shadow-gray-500/80 border-4 border-blue/70">
+					<div class="flex flex-col items-center gap-0 text-center">
+						<img src="logo.png" class="w-[220px] h-170px] " alt="Logo">
 						<p class="text-[#616189] dark:text-gray-300 text-md font-normal leading-normal">
 							Inicia sesión
 							para
 							comenzar a aprender</p>
 					</div>
-					<div class="flex flex-col w-full justify-center items-center  gap-4 px-4 py-3">
-						<div class="flex flex-col w-[90%]">
+					<div class="flex flex-col w-full justify-center items-center  gap-2 px-4 py-">
+						<div class="flex pt-4 pb-2 flex-col w-[80%]">
 							<label
-								class="text-[#111118] w-[100%] dark:text-white text-base font-semibold leading-normal pb-2"
+								class="text-[#111118] w-[100%] dark:text-white text-base font-semibold leading-normal pb-2 "
 								for="username">Usuario</label>
 							<input
-								class="form-input flex w-[100%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/40 dark:bg-gray-700/50 dark:text-white h-8 placeholder:text-[#616189] p-[10px] text-base font-normal leading-normal shadow-sm hover:shadow-md text-center"
+								class="form-input flex w-[100%] min-w-8 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/40 dark:bg-gray-700/50 dark:text-white h-6 placeholder:text-[#616189] p-1 text-base font-normal leading-normal shadow-sm hover:shadow-md text-center"
 								id="userName" name="userName" placeholder="Nombre de Estudiante" type="text" required />
 						</div>
 
-						<div class="flex gap-4 px-4 py-3 w-[90%] z-[100000]">
+						<div class="flex justify-between gap-12   pt-3 w-[80%] z-[100000]">
 							<label class="flex gap-4 w-[38%]">
 								<p class="w-[40%] dark:text-white text-md  font-semibold leading-normal pb-2 h-8">
 									Grado:</p>
 								<select id="selectGrado"
-									class="form-select flex w-[30%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-400 bg-white/40 dark:bg-gray-700/50 dark:text-white focus:border-primary h-8 placeholder:text-[#616189] p-[8px] pb-2 text-sm font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat  pr-4 -mt-1"
+									class="form-select flex w-[30%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-400 bg-white/40 dark:bg-gray-700/50 dark:text-white focus:border-primary h-6 placeholder:text-[#616189] py-1 pb-1 px-3 text-xs font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat"
 									style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');"
 									required>
 									<option value="6">6°</option>
@@ -172,12 +172,12 @@
 									<option value="11">11°</option>
 								</select>
 							</label>
-							<label class="w-[80%] flex justify-start items-start gap-2  flex-1">
+							<label class="w-[70%]  flex justify-start items-start gap-2  flex-1">
 								<p
-									class="w-[50%]  text-[#111118] dark:text-white text-md text-left font-semibold leading-normal pb-2">
-									dificultad</p>
+									class="w-[50%]  text-[#111118] dark:text-white text-md text-left font-semibold leading-normal">
+									dificultad:</p>
 								<select id="selectDificultad"
-									class="form-select flex w-[50%] flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-400 bg-white/40 dark:bg-gray-700/50 dark:text-white focus:border-primary h-8 placeholder:text-[#616189] p-[8px] text-sm font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat  pr-8 pb-2 -mt-1"
+									class="form-select flex w-[50%] flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-gray-400 bg-white/40 dark:bg-gray-700/50 dark:text-white focus:border-primary h-6 placeholder:text-[#616189]  text-xs font-normal leading-normal shadow-sm hover:shadow-md transition-all duration-300 ease-in-out appearance-none bg-no-repeat px-3 pr-8 py-1"
 									style="background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27%23616189%27%3e%3cpath d=%27M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z%27/%3e%3c/svg%3e');"
 									required>
 									<option value="facil">Fácil</option>
@@ -187,28 +187,33 @@
 							</label>
 						</div>
 
-						<div class="flex flex-col w-[90%]">
+						<div class="flex flex-col w-[80%]">
 							<label
 								class="text-[#111118] w-[100%] dark:text-white text-base font-semibold leading-normal pb-2"
 								for="clave">Clave</label>
 							<input
-								class="form-input flex w-[100%] min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/40 dark:bg-gray-700/50 dark:text-white h-6 placeholder:text-[#616189] p-[10px] text-base font-normal leading-normal shadow-sm hover:shadow-md text-center"
+								class="form-input flex w-[100%] min-w-16 flex-1 resize-none overflow-hidden rounded-lg text-[#111118] focus:outline-none focus:ring-2 focus:ring-primary/50 border border-transparent bg-white/40 dark:bg-gray-700/50 dark:text-white h-6 placeholder:text-[#616189] p-1 text-base font-normal leading-normal shadow-sm hover:shadow-md text-center"
 								id="clave" name="clave" placeholder="Inserte su contraseña" type="password" required />
 						</div>
-						<div class="flex flex-col gap-4 px-4 py-3 justify-center">
+
+						<div class=" relative w-[80%] flex-col gap-2 px-4 mt-8 justify-center">
+							<div id="camposVacios"
+								class="hidden absolute text-xs -top-6 left-0 w-[100%] flex justify-center items-center gap-2 p  pb-2 px-4 text-red-500">
+								<p>Por favor, complete todos los campos.</p>
+							</div>
 							<button onclick="entrar()"
-								class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-8 px-12 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-lg font-bold leading-normal tracking-wide shadow-lg btn-glow w-full">
-								<span>Entrar</span>
+								class="flex  cursor-pointer items-center justify-center overflow-hidden rounded-lg h-6 px-16 bg-gradient-to-r from-blue-500 to-cyan-500 text-white  font-bold leading-normal tracking-wide shadow-xs btn-glow w-full">
+								<span class="text-sm">Entrar</span>
 							</button>
 						</div>
 
 					</div>
 
-					<div class="text-center mt-4">
-						<a class="text-sm text-primary hover:underline dark:text-blue-400 cursor-default "
+					<div class="text-center mt-0">
+						<a class="text-xs text-primary hover:underline dark:text-blue-400 cursor-default "
 							href="#">¿Olvidaste tu
 							clave?</a>
-						<p class="text-sm text-[#424242] dark:text-gray-300 mt-2 cursor-default ">¿No tienes una cuenta?
+						<p class="text-xs text-[#424242] dark:text-gray-300 mt-0 cursor-default ">¿No tienes una cuenta?
 							<a class="font-semibold text-primary hover:underline dark:text-blue-400"
 								href="#">Regístrate</a>
 						</p>
